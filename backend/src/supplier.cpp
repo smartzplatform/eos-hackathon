@@ -32,8 +32,18 @@ void supplier::addrate(string description, account_name billing_account, string 
 }
 
 void supplier::adddevice(account_name device_account, account_name user_account, uint64_t rate_id,
-                         std::string description) {
+                         string description) {
+    require_auth( _self );
 
+    auto itr = _devices.find( device_account );
+    eosio_assert(itr != _devices.end(), "Device already exists");
+
+    _devices.emplace( _self, [&]( auto& a ) {
+        a.account = device_account;
+        a.user_account = user_account;
+        a.rate_id = rate_id;
+        a.description = description;
+    });
 }
 
 void supplier::addbalance(account_name user_account, asset quantity) {
