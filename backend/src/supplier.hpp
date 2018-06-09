@@ -45,7 +45,7 @@ public:
 
 
     // @abi action
-    void device_signal(uint64_t payload);
+    void device_signal(uint64_t data);
 
     // @abi action
     void collect_payment(account_name from, asset quantity);
