@@ -12,9 +12,13 @@ BIN_DIR="$(cd $(dirname $0) && pwd)"
 
 mkdir -p "$MOUNT_DIR"
 
+if [[ -z "$NODE_URL" ]]; then
+    NODE_URL="http://127.0.0.1:$NODEOS_PORT/"
+fi
+
 $EOS_DOCKER run --rm --network "$EOS_NETWORK" \
     -v "$MOUNT_DIR":/mounted \
     eosio/eos-dev /opt/eosio/bin/cleos \
-    -u http://127.0.0.1:"$NODEOS_PORT"/ \
+    -u "$NODE_URL" \
     --wallet-url http://127.0.0.1:"$KEOSD_PORT"/ \
     "$@"
