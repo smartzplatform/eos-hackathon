@@ -42,4 +42,22 @@ public:
 
     // @abi action
     void device_signal(uint64_t payload);
+
+    // @abi action
+    void collect_payment(account_name from, asset quantity);
+
+private:
+    // @abi table
+    struct user {
+        uint64_t user_id;
+        account_name account;
+        std::string description;
+        std::string meta;
+        asset balance;
+    };
+
+    // @abi table
+    struct device {
+        uint64_t device_id;
+    };
 };
