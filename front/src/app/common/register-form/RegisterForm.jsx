@@ -12,7 +12,7 @@ export default class RegisterForm extends PureComponent {
         <Form
           schema={formSchema}
           uiSchema={uiSchema}
-          onSubmit={({ formData }) => console.log(formData)}
+          onSubmit={({ formData }) => onSubmit(formData)}
         >
           <button type="submit">Send</button>
         </Form>
