@@ -42,7 +42,7 @@ create_account billrfid '5J2w4621wvHFLUcNRv3wULHEDV3QeY4z8FV33xxzogD4KJRQDsZ' 'E
 
 
 # ./cleos push action supplier adduser '["user1", "descr1", "meta1"]' -p supplier
-# ./cleos push action supplier addrate '["simple electro", "billelectro", "1 1"]' -p supplier
+# ./cleos push action supplier addrate '["simple electro", "billelectro", "100 10"]' -p supplier #billing_meta: <uint: watts/hour per measurement> <uint: payment per kWt/hour>
 # ./cleos push action supplier adddevice '["electricity", "user1", 0, "electro counter"]' -p supplier
-# ./cleos push action supplier addbalance '["user1", "1000.0000 SUPPL"]' -p supplier
+# ./cleos push action supplier addbalance '["user1", "100000"]' -p supplier
 

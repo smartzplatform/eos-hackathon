@@ -38,7 +38,7 @@ public:
             string billing_meta
     ) {
         // device_data is a number of measurements sent
-        // billing_meta: <float: watts/hour per measurement>\t<uint: payment per kWt/hour>
+        // billing_meta: <uint: watts/hour per measurement> <uint: payment per kWt/hour>
         print_block_start("billing_electricity:bill", device_data, user2bill, user_meta, billing_meta);
 
         require_auth(device_account);
