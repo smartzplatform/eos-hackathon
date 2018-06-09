@@ -10,9 +10,12 @@ EOS_DOCKER='docker'
 NODEOS_PORT=8888
 KEOSD_PORT=8889
 
+EOS_TEST_ACCOUNT='debug'
+
 
 # computed - dont touch
 
 NODEOS_DATA="$EOS_DIR/nodeos"
 KEOSD_DATA="$EOS_DIR/keosd"
 
+EOS_PUB_KEY_FILE="$EOS_DIR/pubkey"

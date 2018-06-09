@@ -38,7 +38,18 @@ set +x
 
 sleep 2
 
-EOS_KEY=$("$BIN_DIR/cleos" create key | perl -ne 'print $1 if /^Private key:\s+([^\s]+)/')
+
+"$BIN_DIR/cleos" wallet create
+
+"$BIN_DIR/cleos" wallet keys | perl -ne 'print $1 if /\s+"(EOS[^"]+)/' > "$EOS_PUB_KEY_FILE"
+
+"$BIN_DIR/cleos" create account eosio "$EOS_TEST_ACCOUNT" "$(cat "$EOS_PUB_KEY_FILE")"
+sleep 2
+
+
+
+
+#EOS_KEY=$("$BIN_DIR/cleos" create key | perl -ne 'print $1 if /^Private key:\s+([^\s]+)/')
 
 
 echo OK
