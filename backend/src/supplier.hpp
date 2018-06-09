@@ -42,17 +42,17 @@ public:
     );
 
     // @abi action
-    void add_to_balance(account_name user_account, asset quantity);
+    void add_balance(account_name user_account, asset quantity);
 
     // @abi action
-    void sub_from_balance(account_name user_account, asset quantity);
+    void sub_balance(account_name user_account, asset quantity);
 
 
     // @abi action
     void device_signal(uint64_t data);
 
     // @abi action
-    void collect_payment(account_name from, asset quantity);
+    void do_payment(account_name from, asset quantity);
 
 private:
     // @abi table
