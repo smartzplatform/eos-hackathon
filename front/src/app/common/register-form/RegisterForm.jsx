@@ -5,12 +5,16 @@ import "./RegisterForm.less";
 
 export default class RegisterForm extends PureComponent {
   render() {
-    const { formSchema, uiSchema } = this.props;
+    const { formSchema, uiSchema, onSubmit } = this.props;
 
     return (
       <div className="register-form">
-        <Form schema={formSchema} uiSchema={uiSchema} onSubmit={this.submit}>
-          <button>Send</button>
+        <Form
+          schema={formSchema}
+          uiSchema={uiSchema}
+          onSubmit={({ formData }) => console.log(formData)}
+        >
+          <button type="submit">Send</button>
         </Form>
       </div>
     );

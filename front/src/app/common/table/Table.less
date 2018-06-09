@@ -1,0 +1,35 @@
+.table {
+    .header-list, .table-list {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        list-style: none;
+    }
+
+    .header-list {
+        .header-item {
+            flex: 1;
+
+            height: 60px;
+
+            font-size: 18px;
+        }
+    }
+
+    .table-list {
+        .table-item {
+            cursor: pointer;
+            .field {
+                flex: 1;
+            }
+        }
+    }
+
+    .header-item, .field {
+        min-height: 40px;
+        padding-left: 13px;
+
+        border-bottom: 1px solid gray;
+    }
+}

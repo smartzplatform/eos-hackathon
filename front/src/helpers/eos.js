@@ -4,6 +4,12 @@ import { eosConstants } from "../constants/constants";
 import * as binaryen from "binaryen";
 
 class Eos {
+  scatter;
+  identity;
+  eos;
+  network;
+  configEosInstance;
+
   constructor() {
     document.addEventListener("scatterLoaded", scatterExtension => {
       this.scatter = window.scatter;
@@ -37,6 +43,26 @@ class Eos {
     } else {
       throw Error("Account not found!");
     }
+  }
+
+  getIdentity(cb) {
+    console.log("---------------");
+    console.log(this.scatter);
+    return this.scatter
+      .suggestNetwork(this.network)
+      .then(ok => {
+        console.log(ok);
+        console.log(this.scatter);
+        this.scatter.getIdentity({ accounts: [this.network] });
+      })
+      .then(identity => {
+        console.log(identity);
+        this.identity = identity;
+        cb();
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   deployContract = (bin, abi) => {

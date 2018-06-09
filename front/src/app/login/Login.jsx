@@ -2,8 +2,16 @@ import React, { PureComponent } from "react";
 
 import "./Login.less";
 import AppStore, { screens } from "../../store/AppStore";
+import Eos from "../../helpers/eos";
 
 export default class Login extends PureComponent {
+  identity() {
+    Eos.getIdentity(param => {
+      console.log(this.identity);
+    });
+    // () => AppStore.setMainScreen(screens.SUPPLIER)
+  }
+
   render() {
     return (
       <div className="login-screen">

@@ -12,8 +12,8 @@ import Consumer from "./consumer/Consumer";
 @observer
 class App extends Component {
   render() {
-    console.log(AppStore.currentScreen);
     let content;
+    console.log("last: ", AppStore.currentScreen);
     switch (AppStore.currentScreen) {
       case screens.LOGIN:
         content = <Login />;

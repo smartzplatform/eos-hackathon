@@ -56,6 +56,10 @@ module.exports = env => {
       modules: [path.resolve(sourcePath, "node_modules"), appPath]
     },
 
+    node: {
+      fs: "empty"
+    },
+
     module: {
       rules: removeEmpty([
         {

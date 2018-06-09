@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 import "./TabBar.less";
-import { tabs } from "./../Table";
+import { tabs } from "./../Views";
 
 export default class TabBar extends PureComponent {
   render() {
