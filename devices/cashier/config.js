@@ -1,7 +1,6 @@
 module.exports = {
     pins: {
-        led1: 17,
-        led2: 27,
-        device: 4,
+        led1: 26,
+        led2: 20,
     },
 };

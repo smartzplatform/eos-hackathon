@@ -3,7 +3,6 @@ const Gpio = require('onoff').Gpio;
 
 const conf = require('./config.js');
 
-const device = new Gpio(conf.pins.device, 'in', 'both');
 const led1 = new Gpio(conf.pins.led1, 'out');
 const led2 = new Gpio(conf.pins.led2, 'out');
 
@@ -15,11 +14,10 @@ let eos = Eos({
     httpEndpoint: conf.eos.httpEndpoint,
 });
 
-function sendTrx() {
+function sendTrx(data) {
     try {
         let contract = await eos.contract(conf.eos.contract);
 
-        let data = 1; //TODO normal
         await contract.devicesignal(conf.eos.accountName, data);
     } catch (e) {
         console.log("EOS ERROR:", e);
@@ -28,7 +26,7 @@ function sendTrx() {
 */
 
 
-function sendTrx() {
+function sendTrx(data) {
     setTimeout(() => {
         tickLed(led2);
     }, 500);
@@ -43,19 +41,10 @@ function tickLed(led) {
 }
 
 
-device.watch(async function (err, value) {
-    if (err)
-        return console.log("Watch ERROR:", err);
-
-    sendTrx();
-
-    tickLed(led1);
-});
-
-
 let spawn = require("child_process").spawn;
 let pythonProcess = spawn('python', ["readRfid.py"], {});
 
+let lastTick = {};
 pythonProcess.stdout.on('data', (data) => {
     let json = JSON.parse(data);
     let uid = json.uid[0];
@@ -63,12 +52,18 @@ pythonProcess.stdout.on('data', (data) => {
     uid = (uid << 8) | json.uid[2];
     uid = (uid << 8) | json.uid[3];
 
-    console.log(uid);
+    if (lastTick[uid.toString()] && (new Date().getTime() - lastTick[uid.toString()]) < 500)
+        return;
+
+    sendTrx(uid);
+
+    tickLed(led1);
+
+    lastTick[uid.toString()] = new Date().getTime();
 });
 
 
 process.on('SIGINT', function () {
     led1.unexport();
     led2.unexport();
-    device.unexport();
 });
