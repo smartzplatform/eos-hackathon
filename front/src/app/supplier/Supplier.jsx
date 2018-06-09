@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 
 import "./Supplier.less";
 import AppStore from "../../store/AppStore";
-import RegisterForm from "./../common/register-form/RegisterForm";
 import SupplierMain from "./supplier-main/SupplierMain";
 import TopBar from "./../common/top-bar/TopBar";
 

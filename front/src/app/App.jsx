@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     let content;
     console.log("last: ", AppStore.currentScreen);
-    switch (AppStore.mainScreen) {
+    switch (AppStore.currentScreen) {
       case screens.LOGIN:
         content = <Login />;
         break;

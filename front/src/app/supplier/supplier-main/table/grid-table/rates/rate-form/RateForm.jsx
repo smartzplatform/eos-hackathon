@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 import "./RateForm.less";
-import RegisterForm from "./../../../common/register-form/RegisterForm";
+import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 
 export default class RateForm extends PureComponent {
   render() {

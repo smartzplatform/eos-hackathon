@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 import "./CounterForm.less";
-import RegisterForm from "./../../../common/register-form/RegisterForm";
+import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 
 export default class CounterForm extends PureComponent {
   render() {

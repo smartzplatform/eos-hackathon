@@ -4,6 +4,21 @@ import "./Modal.less";
 
 export default class Modal extends PureComponent {
   render() {
-    return <div className="Modal">sdf</div>;
+    const { children, isOpen, onClose } = this.props;
+
+    if (!isOpen) {
+      return null;
+    }
+
+    return (
+      <div className="modal flex">
+        <div className="window">
+          <span className="closer" onClick={onClose}>
+            &times;
+          </span>
+          {children}
+        </div>
+      </div>
+    );
   }
 }
