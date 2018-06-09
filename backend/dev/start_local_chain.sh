@@ -26,7 +26,7 @@ $EOS_DOCKER run --rm -d --network "$EOS_NETWORK" --name nodeos -v "$NODEOS_DATA"
     eosio/eos-dev /opt/eosio/bin/nodeos \
     -d /data \
     --http-server-address=127.0.0.1:"$NODEOS_PORT" \
-    -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin
+    -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --contracts-console
 
 $EOS_DOCKER run --rm -d --network "$EOS_NETWORK" --name keosd -v "$KEOSD_DATA":/data \
     eosio/eos-dev /opt/eosio/bin/keosd \
