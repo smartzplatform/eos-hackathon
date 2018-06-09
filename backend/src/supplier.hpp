@@ -63,7 +63,7 @@ private:
         account_name account;
         string description;
         string meta;
-        uint64_t balance;
+        int64_t balance;
 
         uint64_t primary_key()const { return account; }
     };

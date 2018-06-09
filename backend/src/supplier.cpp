@@ -119,7 +119,7 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
     _users.modify( user_itr, 0, [&]( auto& a ) {
-        a.balance = a.balance - quantity; //can be negative, debt
+        a.balance = a.balance - int64_t(quantity); //can be negative, debt
     });
 
     print_block_end("dopayment", get_acc(billing_account), get_acc(from), quantity);
