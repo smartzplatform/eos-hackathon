@@ -32,11 +32,13 @@ $EOS_DOCKER run --rm -v "$CONTRACT_DIR":/input -v "$OUTPUT_DIR":/output \
 echo "WAST: $OUTPUT_DIR/$CONTRACT_NAME.wast"
 
 
-if [[ -f "$CONTRACT_DIR/$CONTRACT_HPP_BASENAME" ]]; then
-    ABI_SOURCE="$CONTRACT_HPP_BASENAME"
-else
-    ABI_SOURCE="$CONTRACT_CPP_BASENAME"
-fi
+# if [[ -f "$CONTRACT_DIR/$CONTRACT_HPP_BASENAME" ]]; then
+#     ABI_SOURCE="$CONTRACT_HPP_BASENAME"
+# else
+#    ABI_SOURCE="$CONTRACT_CPP_BASENAME"
+# fi
+
+ABI_SOURCE="$CONTRACT_CPP_BASENAME"
 
 $EOS_DOCKER run --rm -v "$CONTRACT_DIR":/input -v "$OUTPUT_DIR":/output \
     eosio/eos-dev /opt/eosio/tools/eosiocpp \
