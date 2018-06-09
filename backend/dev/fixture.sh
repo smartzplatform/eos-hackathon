@@ -15,9 +15,9 @@ if [[ $# -ge 1 ]]; then
 fi
 
 
-if "$BIN_DIR/cleos" get account supplier &>/dev/null; then
-    die 'Already loaded (supplier found)'
-fi
+#if "$BIN_DIR/cleos" get account supplier &>/dev/null; then
+#    die 'Already loaded (supplier found)'
+#fi
 
 
 create_account() {
@@ -25,7 +25,8 @@ create_account() {
     local PRIVATE="$2"
     local PUBLIC="$3"
 
-    "$BIN_DIR/cleos" create account eosio "$NAME" "$PUBLIC"
+    "$BIN_DIR/cleos" create account eosio "$NAME" "$PUBLIC" &>/dev/null || true
+    "$BIN_DIR/cleos" wallet import "$PRIVATE" &>/dev/null || true
 }
 
 
