@@ -39,3 +39,10 @@ create_account rfiduser2 '5KenTrMhcrL4khxRb9XgAbSDeWfkoidnRzVJessEhfQGUAYNSQC' '
 
 create_account billelectro '5K6FSD2BKpG6Tzxo48iJQQ6ZgLY8kDuGdjNfnA7niHbdiJDsASx' 'EOS8ZSpHAvVy5zxzp4z39gieesnARgu1yDRj45AxptjovNkMFW6xJ'
 create_account billrfid '5J2w4621wvHFLUcNRv3wULHEDV3QeY4z8FV33xxzogD4KJRQDsZ' 'EOS8LFuvw7SN6A13gaPq1GYsZgFexmtTJGpm2xgJXxXg7NVhRMpkQ'
+
+
+# ./cleos push action supplier adduser '["user1", "descr1", "meta1"]' -p supplier
+# ./cleos push action supplier addrate '["simple electro", "billelectro", "1 1"]' -p supplier
+# ./cleos push action supplier adddevice '["electricity", "user1", 0, "electro counter"]' -p supplier
+# ./cleos push action supplier addbalance '["user1", "1000.0000 SUPPL"]' -p supplier
+
