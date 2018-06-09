@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+BIN_DIR="$(cd $(dirname $0) && pwd)"
+
+. "$BIN_DIR/_local_chain.incl.sh"
+
+
+set -x
+
+$EOS_DOCKER run --rm --network "$EOS_NETWORK" \
+    eosio/eos-dev /opt/eosio/bin/cleos \
+    -u http://nodeos:8888/ \
+    --wallet-url http://keosd:8888/ \
+    "$@"
