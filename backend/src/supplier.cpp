@@ -16,6 +16,7 @@ void supplier::adduser(account_name user_account, std::string description, std::
         a.account = user_account;
         a.description = description;
         a.meta = meta;
+        a.balance = asset(0, token_symbol);
     });
 
     print_block_end("adduser", user_account, description, meta);
