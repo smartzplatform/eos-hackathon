@@ -21,8 +21,8 @@ export default class Rates extends Component {
   }
 
   toggleModal() {
-    // SupplierStore.setsupplierScreen(supplierScreens.RATE_FORM);
     const { isOpenModal } = this.state;
+
     this.setState({ isOpenModal: !isOpenModal });
   }
 
@@ -32,7 +32,7 @@ export default class Rates extends Component {
     return (
       <div className="rates">
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
-          <RateForm />
+          <RateForm onCloseModal={this.toggleModal} />
         </Modal>
         <Table data={AppStore.rates} />
         <ButtonAdd text={"Add rates +"} onClick={this.toggleModal} />

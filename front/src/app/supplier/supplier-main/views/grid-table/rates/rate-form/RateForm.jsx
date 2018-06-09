@@ -3,9 +3,7 @@ import React, { PureComponent } from "react";
 import "./RateForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 import AppStore from "../../../../../../../store/AppStore";
-import { observer } from "mobx-react";
 
-@observer
 export default class RateForm extends PureComponent {
   constructor(props) {
     super(props);
@@ -14,8 +12,8 @@ export default class RateForm extends PureComponent {
   }
 
   addRate(formData) {
-    console.log("formData :", formData);
     AppStore.addRate(formData);
+    this.props.onCloseModal();
   }
 
   render() {

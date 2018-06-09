@@ -4,7 +4,11 @@ import "./Counters.less";
 import ButtonAdd from "../../../../../common/button/ButtonAdd";
 import CounterForm from "./counter-form/CounterForm";
 import Modal from "./../../../../../common/modal/Modal";
+import { observer } from "mobx-react";
+import AppStore from "../../../../../../store/AppStore";
+import Table from "./../../../../../common/table/Table";
 
+@observer
 export default class Counters extends PureComponent {
   constructor(props) {
     super(props);
@@ -17,8 +21,8 @@ export default class Counters extends PureComponent {
   }
 
   toggleModal() {
-    // SupplierStore.setsupplierScreen(supplierScreens.RATE_FORM);
     const { isOpenModal } = this.state;
+
     this.setState({ isOpenModal: !isOpenModal });
   }
 
@@ -28,9 +32,9 @@ export default class Counters extends PureComponent {
     return (
       <div className="counters">
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
-          <CounterForm />
+          <CounterForm onCloseModal={this.toggleModal} />
         </Modal>
-        Counters
+        <Table data={AppStore.devices} />
         <ButtonAdd text={"Add counters +"} onClick={this.toggleModal} />
       </div>
     );

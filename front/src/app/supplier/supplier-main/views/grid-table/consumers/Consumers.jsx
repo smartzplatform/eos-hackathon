@@ -1,11 +1,15 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 
 import "./Consumers.less";
 import ButtonAdd from "../../../../../common/button/ButtonAdd";
 import ConsumerForm from "./consumer-form/ConsumerForm";
 import Modal from "../../../../../common/modal/Modal";
+import { observer } from "mobx-react";
+import AppStore from "../../../../../../store/AppStore";
+import Table from "./../../../../../common/table/Table";
 
-export default class Consumers extends PureComponent {
+@observer
+export default class Consumers extends Component {
   constructor(props) {
     super(props);
 
@@ -26,9 +30,9 @@ export default class Consumers extends PureComponent {
     return (
       <div className="consumers">
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
-          <ConsumerForm />
+          <ConsumerForm onCloseModal={this.toggleModal} />
         </Modal>
-        Consumers
+        <Table data={AppStore.consumers} />
         <ButtonAdd text={"Add consumer +"} onClick={this.toggleModal} />
       </div>
     );
