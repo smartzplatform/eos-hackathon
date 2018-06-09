@@ -13,7 +13,8 @@
 namespace common {
 
     static constexpr uint64_t token_symbol = S(4, SUPPL); // precision, symbol
-
+    static constexpr uint64_t max_supply = 1000000000;
+    static constexpr uint64_t decimals = 4;
 
 }
 
