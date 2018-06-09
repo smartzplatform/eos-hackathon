@@ -17,7 +17,9 @@ set -x
 $EOS_DOCKER stop keosd || true
 $EOS_DOCKER stop nodeos || true
 
-$EOS_DOCKER network rm "$EOS_NETWORK" || true
+if [[ "$EOS_NETWORK" != "host" ]]; then
+    $EOS_DOCKER network rm "$EOS_NETWORK" || true
+fi
 
 
 set +x

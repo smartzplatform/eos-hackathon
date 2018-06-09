@@ -3,8 +3,12 @@
 # settings
 
 EOS_DIR="$HOME/eos-hackathon"
-EOS_NETWORK="hackathon"
+# dont change - workaround for cleos bug https://github.com/EOSIO/eos/issues/3145#issuecomment-395951751https://github.com/EOSIO/eos/issues/3145#issuecomment-395951751
+EOS_NETWORK="host"
 EOS_DOCKER='docker'
+
+NODEOS_PORT=8888
+KEOSD_PORT=8889
 
 
 # computed - dont touch

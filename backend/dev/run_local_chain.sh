@@ -18,18 +18,20 @@ mkdir -p "$KEOSD_DATA"
 
 set -x
 
-$EOS_DOCKER network create "$EOS_NETWORK"
+if [[ "$EOS_NETWORK" != "host" ]]; then
+    $EOS_DOCKER network create "$EOS_NETWORK"
+fi
 
 $EOS_DOCKER run --rm -d --network "$EOS_NETWORK" --name nodeos -v "$NODEOS_DATA":/data \
     eosio/eos-dev /opt/eosio/bin/nodeos \
     -d /data \
-    --http-server-address=0.0.0.0:8888 \
+    --http-server-address=127.0.0.1:"$NODEOS_PORT" \
     -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin
 
 $EOS_DOCKER run --rm -d --network "$EOS_NETWORK" --name keosd -v "$KEOSD_DATA":/data \
     eosio/eos-dev /opt/eosio/bin/keosd \
     -d /data \
-    --http-server-address=0.0.0.0:8888 \
+    --http-server-address=127.0.0.1:"$KEOSD_PORT" \
 
 set +x
 

@@ -12,6 +12,6 @@ set -x
 
 $EOS_DOCKER run --rm --network "$EOS_NETWORK" \
     eosio/eos-dev /opt/eosio/bin/cleos \
-    -u http://nodeos:8888/ \
-    --wallet-url http://keosd:8888/ \
+    -u http://127.0.0.1:"$NODEOS_PORT"/ \
+    --wallet-url http://127.0.0.1:"$KEOSD_PORT"/ \
     "$@"
