@@ -25,6 +25,7 @@ export class AppStore {
 
   @action("add rate")
   addRate(rate) {
+    console.log("rate :", rate);
     this.rates.fields.push(rate);
   }
 }
