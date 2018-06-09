@@ -85,8 +85,16 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
 
 }
 
-void supplier::dopayment(account_name from, asset quantity) {
+void supplier::dopayment(account_name billing_account, account_name from, asset quantity) {
+    require_auth( billing_account );
 
+    //todo check, that billing account for this user
+    auto user_itr = _users.find( from );
+    eosio_assert(user_itr == _users.end(), "User doesn't registered");
+
+    _users.modify( user_itr, 0, [&]( auto& a ) {
+        a.balance -= quantity; //can be negative, debt
+    });
 }
 
 

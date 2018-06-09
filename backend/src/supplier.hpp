@@ -55,7 +55,7 @@ public:
     void devicesignal(account_name device_account, uint64_t data);
 
     // @abi action
-    void dopayment(account_name from, asset quantity);
+    void dopayment(account_name billing_account, account_name from, asset quantity);
 
 private:
     // @abi table
