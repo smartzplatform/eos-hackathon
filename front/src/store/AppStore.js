@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { rates as data } from "./mock";
+import { rates as dataRates, consumers as dataConsumers } from "./mock";
 
 export const screens = {
   LOGIN: "login",
@@ -11,11 +11,13 @@ export class AppStore {
   @observable currentScreen;
   @observable login;
   @observable rates;
+  @observable consumers;
 
   constructor() {
     this.currentScreen = screens.LOGIN;
     this.login = false;
-    this.rates = data;
+    this.rates = dataRates;
+    this.consumers = dataConsumers;
   }
 
   @action("set currentScreen")
@@ -26,6 +28,11 @@ export class AppStore {
   @action("add rate")
   addRate(rate) {
     this.rates.fields.push(rate);
+  }
+
+  @action("add consumer")
+  addConsumer(consumer) {
+    this.consumers.fields.push(consumer);
   }
 }
 

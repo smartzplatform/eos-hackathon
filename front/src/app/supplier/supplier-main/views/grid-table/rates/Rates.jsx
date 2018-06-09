@@ -21,8 +21,8 @@ export default class Rates extends Component {
   }
 
   toggleModal() {
-    // SupplierStore.setsupplierScreen(supplierScreens.RATE_FORM);
     const { isOpenModal } = this.state;
+
     this.setState({ isOpenModal: !isOpenModal });
   }
 
