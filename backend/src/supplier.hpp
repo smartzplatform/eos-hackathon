@@ -27,14 +27,14 @@ public:
             _rates(_self, _self)
             {}
 
-    // @abi action
-    void add_user(account_name user_account, std::string description, std::string meta);
+    // @abi_action
+    void adduser(account_name user_account, std::string description, std::string meta);
 
     // @abi_action
-    void add_rate(account_name billing_account, string meta);
+    void addrate(account_name billing_account, string meta);
 
     // @abi action
-    void add_device(
+    void adddevice(
             account_name device_account,
             account_name user_account,
             uint64_t rate_id,
@@ -42,17 +42,17 @@ public:
     );
 
     // @abi action
-    void add_balance(account_name user_account, asset quantity);
+    void addbalance(account_name user_account, asset quantity);
 
     // @abi action
-    void sub_balance(account_name user_account, asset quantity);
+    void subbalance(account_name user_account, asset quantity);
 
 
     // @abi action
-    void device_signal(uint64_t data);
+    void devicesignal(uint64_t data);
 
     // @abi action
-    void do_payment(account_name from, asset quantity);
+    void dopayment(account_name from, asset quantity);
 
 private:
     // @abi table
