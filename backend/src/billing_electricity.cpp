@@ -7,20 +7,17 @@
 #include <eosiolib/currency.hpp>
 
 #include <string>
-#include <sstream>
-#include <algorithm>
-#include <iterator>
 
 #include "billing.hpp"
 #include "debug_tools.hpp"
 #include "common.hpp"
+#include "utils.hpp"
 
 
 using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
 using std::string;
-using std::istringstream;
 using eosio::permission_level;
 using common::token_symbol;
 
@@ -46,18 +43,13 @@ public:
         require_auth(device_account);
         //todo check permission to call this method
 
-
-        float wattPerMeasurement;
-        uint64_t paymentPerKWT;
-
-        char * billing_meta_char = new char [billing_meta.length()+1];
-        strcpy (billing_meta_char, billing_meta.c_str());
-
-        sscanf(billing_meta_char, "%f\t%llu", &wattPerMeasurement, &paymentPerKWT);
+        auto space_pos = billing_meta.find(' ');
+        uint64_t wattPerMeasurement = str2uint(billing_meta.substr(0, space_pos));
+        uint64_t paymentPerKWT = str2uint(billing_meta.substr(space_pos+1));
 
         eosio::print( "wattPerMeasurement = ", wattPerMeasurement, "  paymentPerKWT = ", paymentPerKWT, "\n" );
 
-        asset quantity = asset(wattPerMeasurement * paymentPerKWT / 1000, token_symbol);
+        asset quantity = asset(device_data * wattPerMeasurement * paymentPerKWT / 1000, token_symbol);
         eosio::action(
                 permission_level{ device_account, N(active) },
                 supplier_account, N(dopayment),
