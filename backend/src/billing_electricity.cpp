@@ -42,3 +42,5 @@ public:
     }
 };
 
+
+EOSIO_ABI( billing_electricity, (bill) )

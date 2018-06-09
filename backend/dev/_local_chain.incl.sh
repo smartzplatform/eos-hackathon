@@ -19,3 +19,11 @@ NODEOS_DATA="$EOS_DIR/nodeos"
 KEOSD_DATA="$EOS_DIR/keosd"
 
 EOS_PUB_KEY_FILE="$EOS_DIR/pubkey"
+
+
+# tools
+
+die() {
+    echo $*
+    exit 1
+}
