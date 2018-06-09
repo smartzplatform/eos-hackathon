@@ -42,7 +42,7 @@ function tickLed(led) {
 
 
 let spawn = require("child_process").spawn;
-let pythonProcess = spawn('python', ["readRfid.py"], {});
+let pythonProcess = spawn('python', ["readRfid.py"], {env: {PYTHONPATH: "./libs/MFRC522"}});
 
 let lastTick = {};
 pythonProcess.stdout.on('data', (data) => {

@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "build": "mkdir -p libs & rm -rf ./libs/* & git clone https://github.com/mxgxw/MFRC522-python libs/MFRC522",
     "start": "node main.js"
   },
   "author": "",
