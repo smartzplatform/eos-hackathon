@@ -26,11 +26,12 @@ export default class TopBar extends PureComponent {
 
   render() {
     return (
-      <div className="top-bar">
+      <div className="top-bar flex-v">
         <button className="btn btn-back flex" onClick={this.goBack}>
           <span>&#8592;</span>
           <span>Back</span>
         </button>
+        <p>{AppStore.login}</p>
       </div>
     );
   }

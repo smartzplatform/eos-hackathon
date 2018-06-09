@@ -1,9 +1,13 @@
 @import './styles/index.less';
+@import './styles/variables.less';
 
 body {
     color: #000000;
-    background: radial-gradient(ellipse at center, #A8EDF2, #558892); /*Standard*/
 
+// background: radial-gradient(ellipse at center, #A8EDF2, #558892); /*Standard*/
+    background-color: @color-light;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 12px;
     line-height: 17px;
 }
