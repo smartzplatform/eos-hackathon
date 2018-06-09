@@ -1,48 +1,44 @@
 import React, { PureComponent } from "react";
 
-import "./RateForm.less";
+import "./CounterForm.less";
 import RegisterForm from "./../../../common/register-form/RegisterForm";
 
-export default class RateForm extends PureComponent {
+export default class CounterForm extends PureComponent {
   render() {
     const formSchema = {
       type: "object",
-      required: ["name", "type", "price"],
+      required: ["model", "consumer", "rate"],
       additionalProperties: false,
       properties: {
-        name: {
-          title: "Name",
-          type: "string",
-          minLength: 2,
-          maxLength: 100,
-          pattern: "^[a-zA-Z]+$"
-        },
-        type: {
-          title: "Type",
+        model: {
+          title: "Model/Type",
           type: "string"
         },
-        price: {
-          title: "Price",
+        consumer: {
+          title: "Consumer",
+          type: "string"
+        },
+        rate: {
+          title: "Rate",
           type: "string"
         }
       }
     };
 
     const uiSchema = {
-      name: {
+      model: {
         "ui:placeholder": "John Doe"
       },
-      currency: {
-        // "ui:widget": "",
-        "ui:placeholder": "..."
+      consumer: {
+        "ui:placeholder": "0"
       },
-      price: {
+      rate: {
         "ui:placeholder": "0"
       }
     };
 
     return (
-      <div className="rate-form">
+      <div className="counter-form">
         <RegisterForm formSchema={formSchema} uiSchema={uiSchema} />
       </div>
     );

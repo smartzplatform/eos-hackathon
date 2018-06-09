@@ -5,6 +5,8 @@ import Table from "./table/Table";
 import RateForm from "./rate-form/RateForm";
 import SupplierStore, { supplierScreens } from "../../../store/SupplierStore";
 import { observer } from "mobx-react";
+import ConsumerForm from "./consumer-form/ConsumerForm";
+import CounterForm from "./counter-form/CounterForm";
 
 @observer
 export default class SupplierMain extends Component {
@@ -19,10 +21,10 @@ export default class SupplierMain extends Component {
         content = <RateForm />;
         break;
       case supplierScreens.CONSUMER_FORM:
-        content = <Table />;
+        content = <ConsumerForm />;
         break;
       case supplierScreens.DEVICE_FORM:
-        content = <Table />;
+        content = <CounterForm />;
         break;
 
       default:

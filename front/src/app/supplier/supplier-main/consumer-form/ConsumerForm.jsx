@@ -1,13 +1,13 @@
 import React, { PureComponent } from "react";
 
-import "./RateForm.less";
+import "./ConsumerForm.less";
 import RegisterForm from "./../../../common/register-form/RegisterForm";
 
-export default class RateForm extends PureComponent {
+export default class ConsumerForm extends PureComponent {
   render() {
     const formSchema = {
       type: "object",
-      required: ["name", "type", "price"],
+      required: ["name", "balance"],
       additionalProperties: false,
       properties: {
         name: {
@@ -17,12 +17,8 @@ export default class RateForm extends PureComponent {
           maxLength: 100,
           pattern: "^[a-zA-Z]+$"
         },
-        type: {
-          title: "Type",
-          type: "string"
-        },
-        price: {
-          title: "Price",
+        balance: {
+          title: "Balance",
           type: "string"
         }
       }
@@ -32,17 +28,14 @@ export default class RateForm extends PureComponent {
       name: {
         "ui:placeholder": "John Doe"
       },
-      currency: {
+      balance: {
         // "ui:widget": "",
-        "ui:placeholder": "..."
-      },
-      price: {
         "ui:placeholder": "0"
       }
     };
 
     return (
-      <div className="rate-form">
+      <div className="consumer-form">
         <RegisterForm formSchema={formSchema} uiSchema={uiSchema} />
       </div>
     );

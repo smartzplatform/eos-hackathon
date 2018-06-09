@@ -9,13 +9,13 @@ export default class Login extends PureComponent {
       <div className="login-screen">
         <button
           className="btn btn-login"
-          onClick={() => AppStore.setCurrentScreen(screens.SUPPLIER)}
+          onClick={() => AppStore.setMainScreen(screens.SUPPLIER)}
         >
           Login as Sup
         </button>
         <button
           className="btn btn-login"
-          onClick={() => AppStore.setCurrentScreen(screens.CONSUMER)}
+          onClick={() => AppStore.setMainScreen(screens.CONSUMER)}
         >
           Login as User
         </button>

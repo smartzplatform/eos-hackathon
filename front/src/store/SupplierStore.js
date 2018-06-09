@@ -1,4 +1,5 @@
 import { observable, action } from "mobx";
+import AppStore from "./AppStore";
 
 export const supplierScreens = {
   TABLE: "table",
@@ -7,7 +8,7 @@ export const supplierScreens = {
   DEVICE_FORM: "device_form"
 };
 
-export class AppStore {
+export class SupplierStore {
   @observable supplierScreen;
 
   constructor() {
@@ -17,7 +18,8 @@ export class AppStore {
   @action("set supplierScreen")
   setsupplierScreen(supplierScreen) {
     this.supplierScreen = supplierScreen;
+    AppStore.setCurrentScreen(supplierScreen);
   }
 }
 
-export default new AppStore();
+export default new SupplierStore();

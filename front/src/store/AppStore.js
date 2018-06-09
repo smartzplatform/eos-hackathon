@@ -7,12 +7,19 @@ export const screens = {
 };
 
 export class AppStore {
+  @observable mainScreen;
   @observable currentScreen;
   @observable login;
 
   constructor() {
-    this.currentScreen = screens.LOGIN;
+    this.mainScreen = screens.LOGIN;
     this.login = false;
+  }
+
+  @action("set mainScreen")
+  setMainScreen(mainScreen) {
+    this.mainScreen = mainScreen;
+    this.setCurrentScreen(mainScreen);
   }
 
   @action("set currentScreen")
