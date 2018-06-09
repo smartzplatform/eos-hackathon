@@ -12,6 +12,8 @@
 #include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
 
+static constexpr uint64_t token_symbol = S(4, SUPPL); // precision, symbol
+
 
 using eosio::asset;
 using eosio::const_mem_fun;
@@ -27,39 +29,39 @@ public:
             _rates(_self, _self)
             {}
 
-    // @abi action
-    void add_user(account_name user_account, std::string description, std::string meta);
+    // @abi_action
+    void adduser(account_name user_account, string description, string meta);
 
     // @abi_action
-    void add_rate(account_name billing_account, string meta);
+    void addrate(string description, account_name billing_account, string meta);
 
     // @abi action
-    void add_device(
+    void adddevice(
             account_name device_account,
             account_name user_account,
             uint64_t rate_id,
-            std::string description
+            string description
     );
 
     // @abi action
-    void add_balance(account_name user_account, asset quantity);
+    void addbalance(account_name user_account, asset quantity);
 
     // @abi action
-    void sub_balance(account_name user_account, asset quantity);
+    void subbalance(account_name user_account, asset quantity);
 
 
     // @abi action
-    void device_signal(uint64_t data);
+    void devicesignal(uint64_t data);
 
     // @abi action
-    void do_payment(account_name from, asset quantity);
+    void dopayment(account_name from, asset quantity);
 
 private:
     // @abi table
     struct user {
         account_name account;
-        std::string description;
-        std::string meta;
+        string description;
+        string meta;
         asset balance;
 
         uint64_t primary_key()const { return account; }
@@ -70,7 +72,7 @@ private:
         account_name account;
         account_name user_account;
         uint64_t rate_id;
-        std::string description;
+        string description;
 
         uint64_t primary_key()const { return account; }
         uint64_t by_user() const { return user_account; }
@@ -79,8 +81,9 @@ private:
     // @abi table
     struct rate {
         uint64_t rate_id;
+        string description;
         account_name billing_account;
-        std::string meta;
+        string meta;
 
         uint64_t primary_key()const { return rate_id; }
     };
