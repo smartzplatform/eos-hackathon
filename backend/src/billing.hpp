@@ -12,7 +12,7 @@ using std::string;
 
 class billing {
     // @abi action
-    void bill(uint64_t device_payload, account_name user2bill, string user_meta, string device_meta) = 0;
+    void bill(uint64_t device_payload, account_name user2bill, string user_meta, string billing_meta) = 0;
 };
 
 

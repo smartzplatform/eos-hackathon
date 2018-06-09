@@ -64,14 +64,23 @@ private:
     // @abi table
     struct device {
         account_name account;
-        account_name billing_account;
         account_name user_account;
+        uint64_t rate_id;
         std::string description;
-        std::string meta;
 
         uint64_t primary_key()const { return account; }
         uint64_t by_user() const { return user_account; }
     };
+
+    // @abi table
+    struct rate {
+        uint64_t rate_id;
+        account_name billing_account;
+        std::string meta;
+
+        uint64_t primary_key()const { return rate_id; }
+    };
+
 
     eosio::multi_index< N(user), user > _users;
     eosio::multi_index<
