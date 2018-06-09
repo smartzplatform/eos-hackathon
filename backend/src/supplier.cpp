@@ -47,11 +47,22 @@ void supplier::adddevice(account_name device_account, account_name user_account,
 }
 
 void supplier::addbalance(account_name user_account, asset quantity) {
+    require_auth( _self );
+
+    eosio_assert( quantity.symbol == token_symbol, "Wrong symbol" );
+
+    auto itr = _users.find( user_account );
+    eosio_assert(itr == _users.end(), "User doesn't exist");
+
+    _users.modify( itr, 0, [&]( auto& a ) {
+        a.balance += quantity;
+        eosio_assert( a.balance >= quantity, "Overflow detected" );
+    });
 
 }
 
 void supplier::subbalance(account_name user_account, asset quantity) {
-
+    eosio_assert(false, "Not implemented");
 }
 
 void supplier::devicesignal(uint64_t data) {

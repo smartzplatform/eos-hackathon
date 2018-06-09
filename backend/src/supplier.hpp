@@ -12,6 +12,8 @@
 #include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
 
+static constexpr uint64_t token_symbol = S(4, SUPPL); // precision, symbol
+
 
 using eosio::asset;
 using eosio::const_mem_fun;
