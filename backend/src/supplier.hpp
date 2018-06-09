@@ -23,7 +23,8 @@ public:
     supplier(account_name self) :
             contract(self),
             _users(_self, _self),
-            _devices(_self, _self)
+            _devices(_self, _self),
+            _rates(_self, _self)
             {}
 
     // @abi action
@@ -90,4 +91,5 @@ private:
             N(device), device,
             indexed_by< N(byuser), const_mem_fun<device, uint64_t, &device::by_user> >
     > _devices;
+    eosio::multi_index< N(rate), rate > _rates;
 };
