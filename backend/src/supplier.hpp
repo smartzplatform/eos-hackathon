@@ -49,15 +49,22 @@ public:
 private:
     // @abi table
     struct user {
-        uint64_t user_id;
         account_name account;
         std::string description;
         std::string meta;
         asset balance;
+
+        uint64_t primary_key()const { return account; }
     };
 
     // @abi table
     struct device {
-        uint64_t device_id;
+        account_name account;
+        account_name billing_account;
+        account_name user_account;
+        std::string description;
+        std::string meta;
+
+        uint64_t primary_key()const { return account; }
     };
 };
