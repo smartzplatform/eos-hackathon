@@ -1,3 +1,5 @@
+@import '../../../styles/variables.less';
+
 .table {
     display: flex;
     flex: 1;
@@ -17,17 +19,26 @@
         .header-item {
             flex: 1;
 
-            height: 60px;
+            height: 50px;
 
-            font-size: 18px;
+            border-right: 1px solid lightblue;
+            background-color: darken(@color-active, 5);
+
+            font-size: 16px;
         }
     }
 
     .table-list {
         .table-item {
             cursor: pointer;
+            &:hover {
+                background-color: lightblue;
+            }
+
             .field {
                 flex: 1;
+
+                border-right: 1px solid lightblue;
             }
         }
     }
@@ -36,7 +47,7 @@
         min-height: 40px;
         padding-left: 13px;
 
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid lightblue;
     }
 
     .wrapper {

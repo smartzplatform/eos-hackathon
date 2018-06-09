@@ -16,7 +16,7 @@ void supplier::adduser(account_name user_account, std::string description, std::
         a.account = user_account;
         a.description = description;
         a.meta = meta;
-        a.balance = asset(0, token_symbol);
+        a.balance = 0;
     });
 
     print_block_end("adduser", user_account, description, meta);
@@ -62,30 +62,28 @@ void supplier::adddevice(account_name device_account, account_name user_account,
     print_block_end("adddevice", device_account, user_account, rate_id, description);
 }
 
-void supplier::addbalance(account_name user_account, asset quantity) {
-    print_block_start("addbalance", user_account, quantity);
+void supplier::addbalance(account_name user_account, uint64_t quantity) {
+    print_block_start("addbalance", get_acc(user_account), quantity);
 
     require_auth( _self );
-
-    eosio_assert( quantity.symbol == token_symbol, "Wrong symbol" );
 
     auto itr = _users.find( user_account );
     eosio_assert(itr != _users.end(), "User doesn't exist");
 
     _users.modify( itr, 0, [&]( auto& a ) {
-        a.balance += quantity;
+        a.balance = a.balance + quantity;
         eosio_assert( a.balance >= quantity, "Overflow detected" );
     });
 
-    print_block_end("addbalance", user_account, quantity);
+    print_block_end("addbalance", get_acc(user_account), quantity);
 }
 
-void supplier::subbalance(account_name user_account, asset quantity) {
+void supplier::subbalance(account_name user_account, uint64_t quantity) {
     eosio_assert(false, "Not implemented");
 }
 
 void supplier::devicesignal(account_name device_account, uint64_t data) {
-    print_block_start("devicesignal", device_account, data);
+    print_block_start("devicesignal", get_acc(device_account), data);
 
     require_auth( device_account );
 
@@ -98,17 +96,20 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
     auto user_itr = _users.find( device_itr->user_account );
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
+//    eosio::name nm={rate_itr->billing_account};
+//    eosio::print(nm.to_string().c_str());//billelectro
+
     eosio::action(
             permission_level{ device_account, N(active) },
             rate_itr->billing_account, N(bill),
             std::make_tuple(_self, device_account, data, device_itr->user_account, user_itr->meta, rate_itr->meta)
     ).send();
 
-    print_block_end("devicesignal", device_account, data);
+    print_block_end("devicesignal", get_acc(device_account), data);
 }
 
-void supplier::dopayment(account_name billing_account, account_name device_account, account_name from, asset quantity) {
-    print_block_start("dopayment", billing_account, from, quantity);
+void supplier::dopayment(account_name billing_account, account_name device_account, account_name from, uint64_t quantity) {
+    print_block_start("dopayment", get_acc(billing_account), get_acc(from), quantity);
 
     require_auth( device_account );
     //todo check permissions
@@ -118,10 +119,10 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
     _users.modify( user_itr, 0, [&]( auto& a ) {
-        a.balance -= quantity; //can be negative, debt
+        a.balance = a.balance - quantity; //can be negative, debt
     });
 
-    print_block_end("dopayment", billing_account, from, quantity);
+    print_block_end("dopayment", get_acc(billing_account), get_acc(from), quantity);
 }
 
 

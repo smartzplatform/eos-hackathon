@@ -2,7 +2,8 @@ import React, { PureComponent } from "react";
 
 import "./ConsumerForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
-import AppStore from "../../../../../../../store/AppStore";
+import Eos from "../../../../../../../helpers/eos";
+// import { sendTransaction } from "../../../../../../../helpers/eos";
 
 export default class ConsumerForm extends PureComponent {
   constructor(props) {
@@ -12,8 +13,26 @@ export default class ConsumerForm extends PureComponent {
   }
 
   addConsumer(formData) {
-    AppStore.addConsumer(formData);
-    this.props.onCloseModal();
+    const { name, balance, description, meta } = formData;
+
+    Eos.sendTransaction(
+      ["adduser", "addbalance"],
+      [
+        {
+          user_account: name,
+          meta,
+          description
+        },
+        { user_account: name, quantity: balance }
+      ]
+    )
+      .then(result => {
+        console.log(result);
+        this.props.onCloseModal();
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -25,11 +44,13 @@ export default class ConsumerForm extends PureComponent {
         name: {
           title: "Name",
           type: "string",
-          minLength: 2,
-          maxLength: 100,
+          minLength: 12,
+          maxLength: 12,
           pattern: "^[a-zA-Z]+$"
         },
-        balance: { title: "Balance", type: "string" }
+        balance: { title: "Balance", type: "string" },
+        description: { title: "Description", type: "string" },
+        meta: { title: "Meta", type: "string" }
       }
     };
 
@@ -47,6 +68,7 @@ export default class ConsumerForm extends PureComponent {
           formSchema={formSchema}
           uiSchema={uiSchema}
           onSubmit={this.addConsumer}
+          title={"Add consumer"}
         />
       </div>
     );

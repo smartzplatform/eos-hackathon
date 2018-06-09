@@ -8,6 +8,7 @@ import Table from "./../../../../../common/table/Table";
 import { observer } from "mobx-react";
 import AppStore from "../../../../../../store/AppStore";
 import MiddleBar from "./../../../../../common/middle-bar/MiddleBar";
+import Eos from "../../../../../../helpers/eos";
 
 @observer
 export default class Rates extends Component {
@@ -19,6 +20,16 @@ export default class Rates extends Component {
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    Eos.readTable({ code: "supplier", table: "device" }) // name of contract // table, (function name)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   toggleModal() {

@@ -9,16 +9,17 @@
 
 
 #include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
 #include "common.hpp"
+#include <eosiolib/fixedpoint.hpp>
 
-using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
 using eosio::permission_level;
 using std::string;
 using common::token_symbol;
+using common::max_supply;
+using common::decimals;
 
 class supplier : public eosio::contract {
 public:
@@ -44,17 +45,17 @@ public:
     );
 
     // @abi action
-    void addbalance(account_name user_account, asset quantity);
+    void addbalance(account_name user_account, uint64_t quantity);
 
     // @abi action
-    void subbalance(account_name user_account, asset quantity);
+    void subbalance(account_name user_account, uint64_t quantity);
 
 
     // @abi action
     void devicesignal(account_name device_account, uint64_t data);
 
     // @abi action
-    void dopayment(account_name billing_account, account_name device_account, account_name from, asset quantity);
+    void dopayment(account_name billing_account, account_name device_account, account_name from, uint64_t quantity);
 
 private:
     // @abi table
@@ -62,7 +63,7 @@ private:
         account_name account;
         string description;
         string meta;
-        asset balance;
+        uint64_t balance;
 
         uint64_t primary_key()const { return account; }
     };

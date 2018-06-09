@@ -31,19 +31,25 @@ export default class Login extends PureComponent {
 
   render() {
     return (
-      <div className="login-screen">
-        <button
-          className="btn btn-login"
-          onClick={() => AppStore.setCurrentScreen(screens.SUPPLIER)}
-        >
-          Login as supplier
-        </button>
-        <button
-          className="btn btn-login"
-          onClick={() => AppStore.setCurrentScreen(screens.CONSUMER)}
-        >
-          Login as consumer
-        </button>
+      <div className="login-screen flex">
+        <div className="wrapper flex">
+          <div className="desc flex">
+            <h1>SensorPay</h1>
+            <p>EOSIO-based IoT Payment Platform</p>
+          </div>
+          <button
+            className="btn btn-login"
+            onClick={() => AppStore.setCurrentScreen(screens.SUPPLIER)}
+          >
+            Login as supplier
+          </button>
+          <button
+            className="btn btn-login"
+            onClick={() => AppStore.setCurrentScreen(screens.CONSUMER)}
+          >
+            Login as consumer
+          </button>
+        </div>
       </div>
     );
   }

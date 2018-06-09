@@ -5,7 +5,7 @@
 #ifndef EOS_HACK_DEBUG_TOOLS_H
 #define EOS_HACK_DEBUG_TOOLS_H
 
-#endif //EOS_HACK_DEBUG_TOOLS_H
+
 
 
 static constexpr auto header = "============================= ";
@@ -38,3 +38,9 @@ inline void print_block_end(Arg&& a, Args&&... args) {
     eosio::print("\n");
 }
 
+
+const char * get_acc(uint64_t acc) {
+    eosio::name nm={acc};
+    return nm.to_string().c_str();
+}
+#endif //EOS_HACK_DEBUG_TOOLS_H

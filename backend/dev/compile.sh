@@ -14,7 +14,7 @@ BIN_DIR="$(cd $(dirname $0) && pwd)"
 [[ $# -eq 2 ]] || die "usage: $0 contract_cpp output_dir"
 
 CONTRACT_CPP="$1"
-OUTPUT_DIR="$2"
+OUTPUT_DIR="$(cd "$2" && pwd)"
 
 [[ -n "$CONTRACT_CPP" && -n "$OUTPUT_DIR" ]] || die "usage: $0 contract_cpp output_dir"
 

@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 import "./RateForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 import AppStore from "../../../../../../../store/AppStore";
+import Eos from "../../../../../../../helpers/eos";
 
 export default class RateForm extends PureComponent {
   constructor(props) {
@@ -12,45 +13,42 @@ export default class RateForm extends PureComponent {
   }
 
   addRate(formData) {
-    AppStore.addRate(formData);
-    this.props.onCloseModal();
+    const { description, type, price } = formData;
+
+    const dict = { electricity: "electricity", RFID: "billrfid" };
+
+    Eos.sendTransaction("addrate", {
+      description,
+      billing_account: dict[type],
+      meta: price
+    })
+      .then(result => {
+        console.log(result);
+        this.props.onCloseModal();
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   render() {
     const formSchema = {
       type: "object",
-      required: ["name", "type", "price"],
+      required: ["description", "type", "price"],
       additionalProperties: false,
       properties: {
-        name: {
-          title: "Name",
-          type: "string",
-          minLength: 2,
-          maxLength: 100,
-          pattern: "^[a-zA-Z]+$"
-        },
-        type: {
-          title: "Type",
+        description: {
+          title: "Description",
           type: "string"
         },
-        price: {
-          title: "Price",
-          type: "string"
-        }
+        type: { title: "Type", type: "string", enum: ["RFID", "electricity"] },
+        price: { title: "Price", type: "string" }
       }
     };
 
     const uiSchema = {
-      name: {
-        "ui:placeholder": "John Doe"
-      },
-      currency: {
-        // "ui:widget": "",
-        "ui:placeholder": "..."
-      },
-      price: {
-        "ui:placeholder": "0"
-      }
+      name: { "ui:placeholder": "John Doe" },
+      price: { "ui:placeholder": "0" }
     };
 
     return (
@@ -59,6 +57,7 @@ export default class RateForm extends PureComponent {
           formSchema={formSchema}
           uiSchema={uiSchema}
           onSubmit={this.addRate}
+          title={"Add rate"}
         />
       </div>
     );
