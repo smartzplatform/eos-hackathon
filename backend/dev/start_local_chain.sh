@@ -32,6 +32,7 @@ $EOS_DOCKER run --rm -d --network "$EOS_NETWORK" --name keosd -v "$KEOSD_DATA":/
     eosio/eos-dev /opt/eosio/bin/keosd \
     -d /data \
     --http-server-address=127.0.0.1:"$KEOSD_PORT" \
+    --unlock-timeout=1000000000
 
 set +x
 

@@ -10,7 +10,10 @@ BIN_DIR="$(cd $(dirname $0) && pwd)"
 
 #set -x
 
+mkdir -p "MOUNT_DIR"
+
 $EOS_DOCKER run --rm --network "$EOS_NETWORK" \
+    -v "$MOUNT_DIR":/mounted \
     eosio/eos-dev /opt/eosio/bin/cleos \
     -u http://127.0.0.1:"$NODEOS_PORT"/ \
     --wallet-url http://127.0.0.1:"$KEOSD_PORT"/ \

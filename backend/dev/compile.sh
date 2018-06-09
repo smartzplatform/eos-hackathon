@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#   Stops test single-node network
+#   Compiles contract
 #
 
 set -eu
@@ -18,7 +18,7 @@ OUTPUT_DIR="$2"
 
 [[ -n "$CONTRACT_CPP" && -n "$OUTPUT_DIR" ]] || die "usage: $0 contract_cpp output_dir"
 
-CONTRACT_DIR="$(dirname "$CONTRACT_CPP")"
+CONTRACT_DIR="$(cd "$(dirname "$CONTRACT_CPP")" && pwd)"
 CONTRACT_NAME="$(basename "$CONTRACT_CPP" | sed -e 's/\.cpp$//')"
 
 CONTRACT_CPP_BASENAME="$(basename "$CONTRACT_CPP")"
