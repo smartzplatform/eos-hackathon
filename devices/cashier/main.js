@@ -7,30 +7,32 @@ const led1 = new Gpio(conf.pins.led1, 'out');
 const led2 = new Gpio(conf.pins.led2, 'out');
 
 
-/*
 let eos = Eos({
     keyProvider: conf.eos.privateKey,
     chainId: conf.eos.chainId,
     httpEndpoint: conf.eos.httpEndpoint,
 });
 
-function sendTrx(data) {
+
+async function sendTrx(data) {
     try {
         let contract = await eos.contract(conf.eos.contract);
 
-        await contract.devicesignal(conf.eos.accountName, data);
+        await contract.devicesignal(conf.eos.accountName, data, {authorization: conf.eos.accountName});
+        tickLed(led2);
     } catch (e) {
         console.log("EOS ERROR:", e);
     }
 }
-*/
 
 
+/*
 function sendTrx(data) {
     setTimeout(() => {
         tickLed(led2);
     }, 500);
 }
+*/
 
 
 function tickLed(led) {
@@ -55,9 +57,8 @@ pythonProcess.stdout.on('data', (data) => {
     if (lastTick[uid.toString()] && (new Date().getTime() - lastTick[uid.toString()]) < 500)
         return;
 
-    sendTrx(uid);
-
     tickLed(led1);
+    sendTrx(uid);
 
     lastTick[uid.toString()] = new Date().getTime();
 });

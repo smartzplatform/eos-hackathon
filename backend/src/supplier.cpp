@@ -83,7 +83,7 @@ void supplier::subbalance(account_name user_account, uint64_t quantity) {
 }
 
 void supplier::devicesignal(account_name device_account, uint64_t data) {
-    print_block_start("devicesignal", device_account, data);
+    print_block_start("devicesignal", get_acc(device_account), data);
 
     require_auth( device_account );
 
@@ -105,7 +105,7 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
             std::make_tuple(_self, device_account, data, device_itr->user_account, user_itr->meta, rate_itr->meta)
     ).send();
 
-    print_block_end("devicesignal", device_account, data);
+    print_block_end("devicesignal", get_acc(device_account), data);
 }
 
 void supplier::dopayment(account_name billing_account, account_name device_account, account_name from, uint64_t quantity) {
