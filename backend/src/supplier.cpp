@@ -5,6 +5,16 @@
 #include "supplier.hpp"
 
 void supplier::adduser(account_name user_account, std::string description, std::string meta) {
+    require_auth( _self );
+
+    auto itr = _users.find( user_account );
+    eosio_assert(itr != _users.end(), "User already exists");
+
+    _users.emplace( _self, [&]( auto& a ) {
+        a.account = user_account;
+        a.description = description;
+        a.meta = meta;
+    });
 
 }
 
