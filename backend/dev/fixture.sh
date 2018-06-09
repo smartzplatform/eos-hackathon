@@ -47,3 +47,24 @@ create_account billrfid '5J2w4621wvHFLUcNRv3wULHEDV3QeY4z8FV33xxzogD4KJRQDsZ' 'E
 # ./cleos push action supplier adddevice '["electricity", "user1", 0, "electro counter"]' -p supplier
 # ./cleos push action supplier addbalance '["user1", "100000"]' -p supplier
 
+
+# rdif case:
+#
+# push action billrfid addframe '["rfidreader"]' -p billrfid
+# push action billrfid addsku '[11, 10]' -p billrfid
+# push action billrfid addsku '[13, 100]' -p billrfid
+#
+# push action supplier addrate '["", "billrfid", ""]' -p supplier
+# push action supplier adduser '["rfiduser1", "", ""]' -p supplier
+# push action supplier adddevice '["rfiduser1", "rfiduser1", 0, ""]' -p supplier
+#
+# push action eosio updateauth '{"account":"rfiduser1","permission":"active","parent":"owner","auth":{"keys":[{"key":"EOS5d5ay4r2Ah2kK2BpXYP3TayPGy95cBSB4CxFULzt7XLgczDdSY", "weight":1}],"threshold":1,"accounts":[{"permission":{"actor":"billrfid","permission":"eosio.code"},"weight":1},{"permission":{"actor":"supplier","permission":"eosio.code"},"weight":1}],"waits":[]}}' -p rfiduser1
+# buy
+# push action supplier devicesignal '["rfiduser1", 11]' -p rfiduser1
+#
+# it wont be billed so using rfidreader as user
+# push action supplier adduser '["rfidreader", "", ""]' -p supplier
+# push action supplier adddevice '["rfidreader", "rfidreader", 0, ""]' -p supplier
+# push action eosio updateauth '{"account":"rfidreader","permission":"active","parent":"owner","auth":{"keys":[{"key":"EOS6yA6s7jshQPjtE3ir36rSYULmoxmXYVXy2XMnrBfRzuTgnCW2B", "weight":1}],"threshold":1,"accounts":[{"permission":{"actor":"billrfid","permission":"eosio.code"},"weight":1},{"permission":{"actor":"supplier","permission":"eosio.code"},"weight":1}],"waits":[]}}' -p rfidreader
+# frame at exit
+# push action supplier devicesignal '["rfidreader", 11]' -p rfidreader
