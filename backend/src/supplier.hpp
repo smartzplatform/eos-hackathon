@@ -14,11 +14,15 @@
 
 
 using eosio::asset;
+using eosio::const_mem_fun;
+using eosio::indexed_by;
 
 class supplier : public eosio::contract {
 public:
     supplier(account_name self) :
-            contract(self)
+            contract(self),
+            _users(_self, _self),
+            _devices(_self, _self)
             {}
 
     // @abi action
@@ -66,5 +70,12 @@ private:
         std::string meta;
 
         uint64_t primary_key()const { return account; }
+        uint64_t by_user() const { return user_account; }
     };
+
+    eosio::multi_index< N(user), user > _users;
+    eosio::multi_index<
+            N(device), device,
+            indexed_by< N(byuser), const_mem_fun<device, uint64_t, &device::by_user> >
+    > _devices;
 };
