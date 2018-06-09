@@ -23,9 +23,3 @@ inline void print_block_end(Arg&& a, Args&&... args) {
     eosio::print(std::forward<Args>(args)...);
     eosio::print("\n");
 }
-
-
-int main() {
-    print_block_start("qqq", 1, "ww", 9999);
-    print_block_start("qqq", 1, "ww", 9999);
-}
