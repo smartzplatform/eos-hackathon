@@ -30,24 +30,15 @@ public:
         // device_data is a number of measurements sent
         // billing_meta: <float: watts/hour per measurement>\t<uint: payment per kWt/hour>
 
-        istringstream iss(billing_meta);
+        //istringstream iss(billing_meta);
 
         float wattPerMeasurement;
-        iss >> wattPerMeasurement;
+        //iss >> wattPerMeasurement;
 
         uint64_t paymentPerKWT;
-        iss >> paymentPerKWT;
+        //iss >> paymentPerKWT;
 
         eosio::print( "wattPerMeasurement = ", wattPerMeasurement, "  paymentPerKWT = ", paymentPerKWT, "\n" );
     }
 };
-
-EOSIO_ABI( billing_electricity, (bill) )
-
-
-int main(int argc, char **argv) {
-    billing_electricity(N("self")).bill(1U, N("foo"), string(), string("0.3125 2"));
-
-    return 0;
-}
 
