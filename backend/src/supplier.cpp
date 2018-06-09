@@ -118,8 +118,21 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
     auto user_itr = _users.find( from );
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
+    auto device_itr = _devices.find( device_account );
+    eosio_assert(device_itr != _devices.end(), "Device doesn't registered");
+
     _users.modify( user_itr, 0, [&]( auto& a ) {
         a.balance = a.balance - int64_t(quantity); //can be negative, debt
+    });
+
+    _logs.emplace( _self, [&]( auto& a ) {
+        a.log_id = _logs.available_primary_key();
+        a.user_account = from;
+        a.device_account = device_account;
+        a.balance_diff = - int64_t(quantity);
+
+        a.rate_id = device_itr->rate_id;
+        a.final_balance = user_itr->balance;
     });
 
     print_block_end("dopayment", get_acc(billing_account), get_acc(from), quantity);
