@@ -98,6 +98,9 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
     auto user_itr = _users.find( device_itr->user_account );
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
+//    eosio::name nm={rate_itr->billing_account};
+//    eosio::print(nm.to_string().c_str());//billelectro
+
     eosio::action(
             permission_level{ device_account, N(active) },
             rate_itr->billing_account, N(bill),
