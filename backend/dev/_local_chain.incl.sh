@@ -17,6 +17,7 @@ EOS_TEST_ACCOUNT='debug'
 
 NODEOS_DATA="$EOS_DIR/nodeos"
 KEOSD_DATA="$EOS_DIR/keosd"
+MOUNT_DIR="$EOS_DIR/docker-mount"
 
 EOS_PUB_KEY_FILE="$EOS_DIR/pubkey"
 

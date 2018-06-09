@@ -34,15 +34,16 @@ public:
         // device_data is a number of measurements sent
         // billing_meta: <float: watts/hour per measurement>\t<uint: payment per kWt/hour>
 
-        //istringstream iss(billing_meta);
-
         float wattPerMeasurement;
-        //iss >> wattPerMeasurement;
-
         uint64_t paymentPerKWT;
-        //iss >> paymentPerKWT;
+
+        char * billing_meta_char = new char [billing_meta.length()+1];
+        strcpy (billing_meta_char, billing_meta.c_str());
+
+        sscanf(billing_meta_char, "%f\t%llu", &wattPerMeasurement, &paymentPerKWT);
 
         eosio::print( "wattPerMeasurement = ", wattPerMeasurement, "  paymentPerKWT = ", paymentPerKWT, "\n" );
+
 
         print_block_end("billing_electricity:bill", device_data, user2bill, user_meta, billing_meta);
     }
