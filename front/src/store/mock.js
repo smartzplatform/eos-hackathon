@@ -33,3 +33,21 @@ export const consumers = {
     { name: "tor", balance: "4" }
   ]
 };
+
+export const devices = {
+  headers: ["Model/Type", "Consumer", "Rate"],
+  order: ["model", "consumer", "rate"],
+  fields: [
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" },
+    { model: "one v", consumer: "rts", rate: "4y" }
+  ]
+};

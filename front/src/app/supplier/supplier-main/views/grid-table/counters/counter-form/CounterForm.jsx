@@ -2,8 +2,20 @@ import React, { PureComponent } from "react";
 
 import "./CounterForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
+import AppStore from "../../../../../../../store/AppStore";
 
 export default class CounterForm extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.addDevice = this.addDevice.bind(this);
+  }
+
+  addDevice(formData) {
+    AppStore.addDevice(formData);
+    this.props.onCloseModal();
+  }
+
   render() {
     const formSchema = {
       type: "object",
@@ -39,7 +51,11 @@ export default class CounterForm extends PureComponent {
 
     return (
       <div className="counter-form">
-        <RegisterForm formSchema={formSchema} uiSchema={uiSchema} />
+        <RegisterForm
+          onSubmit={this.addDevice}
+          formSchema={formSchema}
+          uiSchema={uiSchema}
+        />
       </div>
     );
   }
