@@ -18,7 +18,16 @@ void supplier::adduser(account_name user_account, std::string description, std::
 
 }
 
-void supplier::addrate(account_name billing_account, string meta) {
+void supplier::addrate(string description, account_name billing_account, string meta) {
+    require_auth( _self );
+
+    //
+    _rates.emplace( _self, [&]( auto& a ) {
+        a.rate_id = _rates.available_primary_key();
+        a.description = description;
+        a.billing_account = billing_account;
+        a.meta = meta;
+    });
 
 }
 

@@ -28,17 +28,17 @@ public:
             {}
 
     // @abi_action
-    void adduser(account_name user_account, std::string description, std::string meta);
+    void adduser(account_name user_account, string description, string meta);
 
     // @abi_action
-    void addrate(account_name billing_account, string meta);
+    void addrate(string description, account_name billing_account, string meta);
 
     // @abi action
     void adddevice(
             account_name device_account,
             account_name user_account,
             uint64_t rate_id,
-            std::string description
+            string description
     );
 
     // @abi action
@@ -58,8 +58,8 @@ private:
     // @abi table
     struct user {
         account_name account;
-        std::string description;
-        std::string meta;
+        string description;
+        string meta;
         asset balance;
 
         uint64_t primary_key()const { return account; }
@@ -70,7 +70,7 @@ private:
         account_name account;
         account_name user_account;
         uint64_t rate_id;
-        std::string description;
+        string description;
 
         uint64_t primary_key()const { return account; }
         uint64_t by_user() const { return user_account; }
@@ -79,8 +79,9 @@ private:
     // @abi table
     struct rate {
         uint64_t rate_id;
+        string description;
         account_name billing_account;
-        std::string meta;
+        string meta;
 
         uint64_t primary_key()const { return rate_id; }
     };
