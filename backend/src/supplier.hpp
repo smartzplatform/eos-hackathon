@@ -16,6 +16,7 @@
 using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
+using std::string;
 
 class supplier : public eosio::contract {
 public:
@@ -28,13 +29,15 @@ public:
     // @abi action
     void add_user(account_name user_account, std::string description, std::string meta);
 
+    // @abi_action
+    void add_rate(account_name billing_account, string meta);
+
     // @abi action
     void add_device(
             account_name device_account,
-            account_name billing_contract,
             account_name user_account,
-            std::string description,
-            std::string meta
+            uint64_t rate_id,
+            std::string description
     );
 
     // @abi action
