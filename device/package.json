@@ -1,0 +1,15 @@
+{
+  "name": "electro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eosjs": "^14.1.0",
+    "onoff": "^3.1.0"
+  }
+}

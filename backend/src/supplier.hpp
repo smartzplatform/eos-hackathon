@@ -18,6 +18,7 @@ static constexpr uint64_t token_symbol = S(4, SUPPL); // precision, symbol
 using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
+using eosio::permission_level;
 using std::string;
 
 class supplier : public eosio::contract {
@@ -51,10 +52,10 @@ public:
 
 
     // @abi action
-    void devicesignal(uint64_t data);
+    void devicesignal(account_name device_account, uint64_t data);
 
     // @abi action
-    void dopayment(account_name from, asset quantity);
+    void dopayment(account_name billing_account, account_name from, asset quantity);
 
 private:
     // @abi table

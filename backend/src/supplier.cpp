@@ -65,13 +65,38 @@ void supplier::subbalance(account_name user_account, asset quantity) {
     eosio_assert(false, "Not implemented");
 }
 
-void supplier::devicesignal(uint64_t data) {
+void supplier::devicesignal(account_name device_account, uint64_t data) {
+    require_auth( device_account );
+
+    auto device_itr = _devices.find( device_account );
+    eosio_assert(device_itr == _devices.end(), "Device doesn't registered");
+
+    auto rate_itr = _rates.find( device_itr->rate_id );
+    eosio_assert(rate_itr == _rates.end(), "Rate doesn't registered");
+
+    auto user_itr = _users.find( device_itr->user_account );
+    eosio_assert(user_itr == _users.end(), "User doesn't registered");
+
+    eosio::action(
+            permission_level{ _self, N(active) },
+            rate_itr->billing_account, N(bill),
+            std::make_tuple(data, device_itr->user_account, user_itr->meta, rate_itr->meta)
+    ).send();
 
 }
 
-void supplier::dopayment(account_name from, asset quantity) {
+void supplier::dopayment(account_name billing_account, account_name from, asset quantity) {
+    require_auth( billing_account );
 
+    //todo check, that billing account for this user
+    auto user_itr = _users.find( from );
+    eosio_assert(user_itr == _users.end(), "User doesn't registered");
+
+    _users.modify( user_itr, 0, [&]( auto& a ) {
+        a.balance -= quantity; //can be negative, debt
+    });
 }
+
 
 
 EOSIO_ABI( supplier, (adduser)(addrate)(adddevice)(addbalance)(devicesignal)(dopayment) )
