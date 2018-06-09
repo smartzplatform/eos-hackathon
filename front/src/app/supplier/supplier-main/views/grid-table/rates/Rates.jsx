@@ -1,11 +1,15 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 
 import "./Rates.less";
 import ButtonAdd from "../../../../../common/button/ButtonAdd";
 import Modal from "./../../../../../common/modal/Modal";
 import RateForm from "./rate-form/RateForm";
+import Table from "./../../../../../common/table/Table";
+import { observer } from "mobx-react";
+import AppStore from "../../../../../../store/AppStore";
 
-export default class Rates extends PureComponent {
+@observer
+export default class Rates extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +34,7 @@ export default class Rates extends PureComponent {
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
           <RateForm />
         </Modal>
-        Rates
+        <Table data={AppStore.rates} />
         <ButtonAdd text={"Add rates +"} onClick={this.toggleModal} />
       </div>
     );
