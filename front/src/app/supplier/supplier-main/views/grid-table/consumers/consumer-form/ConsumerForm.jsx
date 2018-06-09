@@ -3,6 +3,8 @@ import React, { PureComponent } from "react";
 import "./ConsumerForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 import AppStore from "../../../../../../../store/AppStore";
+import Eos from "../../../../../../../helpers/eos";
+// import { sendTransaction } from "../../../../../../../helpers/eos";
 
 export default class ConsumerForm extends PureComponent {
   constructor(props) {
@@ -12,8 +14,27 @@ export default class ConsumerForm extends PureComponent {
   }
 
   addConsumer(formData) {
-    AppStore.addConsumer(formData);
-    this.props.onCloseModal();
+    const { name, balance } = formData;
+
+    // AppStore.addConsumer(formData);
+    Eos.sendTransaction(
+      ["adduser", "addbalance"],
+      [
+        {
+          user_account: name,
+          meta: "",
+          desctiption: ""
+        },
+        { user_account: name, quantity: balance }
+      ]
+    )
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    // this.props.onCloseModal();
   }
 
   render() {
@@ -47,6 +68,7 @@ export default class ConsumerForm extends PureComponent {
           formSchema={formSchema}
           uiSchema={uiSchema}
           onSubmit={this.addConsumer}
+          title={"Add consumer"}
         />
       </div>
     );

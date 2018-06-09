@@ -55,6 +55,7 @@ export default class CounterForm extends PureComponent {
           onSubmit={this.addDevice}
           formSchema={formSchema}
           uiSchema={uiSchema}
+          title={"Add device"}
         />
       </div>
     );
