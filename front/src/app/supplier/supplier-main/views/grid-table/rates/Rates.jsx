@@ -7,6 +7,7 @@ import RateForm from "./rate-form/RateForm";
 import Table from "./../../../../../common/table/Table";
 import { observer } from "mobx-react";
 import AppStore from "../../../../../../store/AppStore";
+import MiddleBar from "./../../../../../common/middle-bar/MiddleBar";
 
 @observer
 export default class Rates extends Component {
@@ -34,8 +35,10 @@ export default class Rates extends Component {
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
           <RateForm onCloseModal={this.toggleModal} />
         </Modal>
+        <MiddleBar>
+          <ButtonAdd text={"Add rate +"} onClick={this.toggleModal} />
+        </MiddleBar>
         <Table data={AppStore.rates} />
-        <ButtonAdd text={"Add rates +"} onClick={this.toggleModal} />
       </div>
     );
   }

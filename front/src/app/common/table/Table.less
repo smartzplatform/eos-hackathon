@@ -1,4 +1,10 @@
 .table {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    height: 100%;
+
     .header-list, .table-list {
         width: 100%;
         margin: 0;
@@ -31,5 +37,10 @@
         padding-left: 13px;
 
         border-bottom: 1px solid gray;
+    }
+
+    .wrapper {
+        overflow-y: auto;
+        flex: 1;
     }
 }

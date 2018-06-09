@@ -35,7 +35,7 @@ export default class Counters extends PureComponent {
           <CounterForm onCloseModal={this.toggleModal} />
         </Modal>
         <Table data={AppStore.devices} />
-        <ButtonAdd text={"Add counters +"} onClick={this.toggleModal} />
+        <ButtonAdd text={"Add device +"} onClick={this.toggleModal} />
       </div>
     );
   }

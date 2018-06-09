@@ -14,7 +14,9 @@ export default class RegisterForm extends PureComponent {
           uiSchema={uiSchema}
           onSubmit={({ formData }) => onSubmit(formData)}
         >
-          <button type="submit">Send</button>
+          <button className="btn btn-submit" type="submit">
+            ADD
+          </button>
         </Form>
       </div>
     );

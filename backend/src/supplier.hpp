@@ -11,15 +11,14 @@
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
-
-static constexpr uint64_t token_symbol = S(4, SUPPL); // precision, symbol
-
+#include "common.hpp"
 
 using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
 using eosio::permission_level;
 using std::string;
+using common::token_symbol;
 
 class supplier : public eosio::contract {
 public:
@@ -30,10 +29,10 @@ public:
             _rates(_self, _self)
             {}
 
-    // @abi_action
+    // @abi action
     void adduser(account_name user_account, string description, string meta);
 
-    // @abi_action
+    // @abi action
     void addrate(string description, account_name billing_account, string meta);
 
     // @abi action
@@ -55,7 +54,7 @@ public:
     void devicesignal(account_name device_account, uint64_t data);
 
     // @abi action
-    void dopayment(account_name billing_account, account_name from, asset quantity);
+    void dopayment(account_name billing_account, account_name device_account, account_name from, asset quantity);
 
 private:
     // @abi table
@@ -68,7 +67,7 @@ private:
         uint64_t primary_key()const { return account; }
     };
 
-    // @abi table
+    // @abi table device i64
     struct device {
         account_name account;
         account_name user_account;

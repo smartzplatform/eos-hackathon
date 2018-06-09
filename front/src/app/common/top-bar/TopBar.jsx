@@ -9,14 +9,10 @@ export default class TopBar extends Component {
   render() {
     return (
       <div className="top-bar flex-v">
-        <button
-          className="btn btn-back flex"
-          onClick={param => console.log("msg")}
-        >
-          <span>&#8592;</span>
-          <span>Back</span>
-        </button>
-        <p>{AppStore.login}</p>
+        <div className="logo">
+          <h2>SensorPay</h2>
+        </div>
+        <span className="nickname">Some name</span>
       </div>
     );
   }

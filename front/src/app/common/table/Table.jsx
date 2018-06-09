@@ -23,21 +23,23 @@ export default class Table extends Component {
             })}
           </ul>
         </div>
-        <ul className="table-list">
-          {fields.map((row, i) => {
-            return (
-              <li className="table-item flex" key={row + i}>
-                {order.map((item, i) => {
-                  return (
-                    <div className="field flex-v" key={item + "5sdf" + i}>
-                      {row[item]}
-                    </div>
-                  );
-                })}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="wrapper">
+          <ul className="table-list">
+            {fields.map((row, i) => {
+              return (
+                <li className="table-item flex" key={row + i}>
+                  {order.map((item, i) => {
+                    return (
+                      <div className="field flex-v" key={item + "5sdf" + i}>
+                        {row[item]}
+                      </div>
+                    );
+                  })}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     );
   }

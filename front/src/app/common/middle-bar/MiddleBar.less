@@ -1,0 +1,23 @@
+.middle-bar {
+    @height: 40px;
+
+    justify-content: space-between;
+
+    height: calc(@height + 20px);
+    padding: 30px 10px;
+
+    .search {
+        width: 100%;
+        height: @height;
+        margin-right: 10px;
+        padding-left: 10px;
+
+        border: none;
+        border-radius: 3px;
+        outline: none;
+
+        &:focus {
+            border: 1px solid lightseagreen;
+        }
+    }
+}
