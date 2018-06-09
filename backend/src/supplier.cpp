@@ -92,7 +92,7 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
     eosio_assert(user_itr == _users.end(), "User doesn't registered");
 
     eosio::action(
-            permission_level{ _self, N(active) },
+            permission_level{ device_account, N(active) },
             rate_itr->billing_account, N(bill),
             std::make_tuple(data, device_itr->user_account, user_itr->meta, rate_itr->meta)
     ).send();
@@ -100,10 +100,11 @@ void supplier::devicesignal(account_name device_account, uint64_t data) {
     print_block_end("devicesignal", device_account, data);
 }
 
-void supplier::dopayment(account_name billing_account, account_name from, asset quantity) {
+void supplier::dopayment(account_name billing_account, account_name device_account, account_name from, asset quantity) {
     print_block_start("dopayment", billing_account, from, quantity);
 
-    require_auth( billing_account );
+    require_auth( device_account );
+    //todo check permissions
 
     //todo check, that billing account for this user
     auto user_itr = _users.find( from );
