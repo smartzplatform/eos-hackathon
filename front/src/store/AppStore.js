@@ -13,6 +13,7 @@ export class AppStore {
   @observable rates;
   @observable consumers;
   @observable devices;
+  @observable statistics;
 
   constructor() {
     this.currentScreen = screens.LOGIN;
@@ -20,6 +21,7 @@ export class AppStore {
     this.rates = [];
     this.consumers = [];
     this.devices = [];
+    this.statistics = [];
   }
 
   @action("set currentScreen")
@@ -40,6 +42,11 @@ export class AppStore {
   @action("add device")
   addDevice(device) {
     this.devices = device;
+  }
+
+  @action("add statistics")
+  addStat(statistic) {
+    this.statistics = statistic;
   }
 }
 
