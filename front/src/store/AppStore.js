@@ -1,9 +1,4 @@
 import { observable, action } from "mobx";
-import {
-  rates as dataRates,
-  consumers as dataConsumers,
-  devices as dataDevices
-} from "./mock";
 
 export const screens = {
   LOGIN: "login",
@@ -22,9 +17,9 @@ export class AppStore {
   constructor() {
     this.currentScreen = screens.LOGIN;
     this.login = false;
-    this.rates = dataRates;
-    this.consumers = dataConsumers;
-    this.devices = dataDevices;
+    this.rates = [];
+    this.consumers = [];
+    this.devices = [];
   }
 
   @action("set currentScreen")
@@ -34,17 +29,17 @@ export class AppStore {
 
   @action("add rate")
   addRate(rate) {
-    this.rates.fields.push(rate);
+    this.rates = rate;
   }
 
   @action("add consumer")
   addConsumer(consumer) {
-    this.consumers.fields.push(consumer);
+    this.consumers = consumer;
   }
 
   @action("add device")
   addDevice(device) {
-    this.devices.fields.push(device);
+    this.devices = device;
   }
 }
 

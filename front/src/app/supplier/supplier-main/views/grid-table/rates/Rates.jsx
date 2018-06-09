@@ -23,14 +23,44 @@ export default class Rates extends Component {
   }
 
   componentDidMount() {
-    Eos.readTable({ code: "supplier", table: "device" }) // name of contract // table, (function name)
+    // this.timerId = setInterval(() => {
+    Eos.readTable({ code: "supplier", table: "rate" })
       .then(result => {
-        console.log(result);
+        console.log(result.rows);
+        if (
+          result.rows &&
+          Array.isArray(result.rows) &&
+          result.rows.length > 0
+        ) {
+          let rateList = [];
+
+          result.rows.map(item => {
+            const { rate_id, billing_account, meta, description } = item;
+            const dict = {
+              electricity: "electricity",
+              billelectro: "RFID"
+            };
+            const rate = {
+              id: rate_id,
+              type: dict[billing_account],
+              price: meta,
+              description
+            };
+            rateList.push(rate);
+          });
+
+          AppStore.addRate(rateList);
+        }
       })
       .catch(error => {
         console.error(error);
       });
+    // }, 2000);
   }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.timerId);
+  // }
 
   toggleModal() {
     const { isOpenModal } = this.state;
@@ -41,6 +71,12 @@ export default class Rates extends Component {
   render() {
     const { isOpenModal } = this.state;
 
+    const data = {
+      headers: ["Id", "Type", "Price", "Description"],
+      order: ["id", "type", "price", "description"],
+      fields: [...AppStore.rates]
+    };
+
     return (
       <div className="rates">
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
@@ -49,7 +85,7 @@ export default class Rates extends Component {
         <MiddleBar>
           <ButtonAdd text={"Add rate +"} onClick={this.toggleModal} />
         </MiddleBar>
-        <Table data={AppStore.rates} />
+        <Table data={data} />
       </div>
     );
   }

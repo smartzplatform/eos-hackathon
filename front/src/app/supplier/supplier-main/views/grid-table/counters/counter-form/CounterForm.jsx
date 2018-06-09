@@ -50,9 +50,6 @@ export default class CounterForm extends PureComponent {
     };
 
     const uiSchema = {
-      // model: {
-      //   "ui:placeholder": "RFID"
-      // },
       consumer: {
         "ui:placeholder": "qwertyuiopas"
       },
