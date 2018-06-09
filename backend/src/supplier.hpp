@@ -67,7 +67,7 @@ private:
         uint64_t primary_key()const { return account; }
     };
 
-    // @abi table
+    // @abi table device i64
     struct device {
         account_name account;
         account_name user_account;

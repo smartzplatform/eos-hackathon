@@ -43,8 +43,14 @@ void supplier::adddevice(account_name device_account, account_name user_account,
 
     require_auth( _self );
 
-    auto itr = _devices.find( device_account );
-    eosio_assert(itr == _devices.end(), "Device already exists");
+    auto device_itr = _devices.find( device_account );
+    eosio_assert(device_itr == _devices.end(), "Device already exists");
+
+    auto user_itr = _users.find( user_account );
+    eosio_assert(user_itr != _users.end(), "User doesn't exists");
+
+    auto rate_itr = _rates.find( rate_id );
+    eosio_assert(rate_itr != _rates.end(), "Rate doesn't exists");
 
     _devices.emplace( _self, [&]( auto& a ) {
         a.account = device_account;
