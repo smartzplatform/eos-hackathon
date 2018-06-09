@@ -26,7 +26,6 @@ export default class Rates extends Component {
     // this.timerId = setInterval(() => {
     Eos.readTable({ code: "supplier", table: "rate" })
       .then(result => {
-        console.log(result.rows);
         if (
           result.rows &&
           Array.isArray(result.rows) &&

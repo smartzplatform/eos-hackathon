@@ -27,7 +27,6 @@ export default class ConsumerForm extends PureComponent {
       ]
     )
       .then(result => {
-        console.log(result);
         this.props.onCloseModal();
       })
       .catch(error => {

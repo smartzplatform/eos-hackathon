@@ -28,7 +28,6 @@ export default class Consumers extends Component {
           Array.isArray(result.rows) &&
           result.rows.length > 0
         ) {
-          console.log(result);
           let consumerList = [];
 
           result.rows.map(item => {

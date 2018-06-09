@@ -24,7 +24,6 @@ export default class CounterForm extends PureComponent {
       description
     })
       .then(result => {
-        console.log(result);
         this.props.onCloseModal();
       })
       .catch(error => {

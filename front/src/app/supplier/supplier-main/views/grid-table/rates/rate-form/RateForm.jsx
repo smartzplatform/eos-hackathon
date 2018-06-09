@@ -23,7 +23,6 @@ export default class RateForm extends PureComponent {
       meta: price
     })
       .then(result => {
-        console.log(result);
         this.props.onCloseModal();
       })
       .catch(error => {

@@ -25,7 +25,6 @@ export default class Counters extends Component {
   componentDidMount() {
     Eos.readTable({ code: "supplier", table: "device" })
       .then(result => {
-        console.log(result);
         if (
           result.rows &&
           Array.isArray(result.rows) &&
