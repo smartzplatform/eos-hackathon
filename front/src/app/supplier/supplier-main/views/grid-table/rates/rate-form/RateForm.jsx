@@ -15,7 +15,7 @@ export default class RateForm extends PureComponent {
   addRate(formData) {
     const { description, type, price } = formData;
 
-    const dict = { electricity: "electricity", RFID: "billrfid" };
+    const dict = { electricity: "electricity", RFID: "billelectro" };
 
     Eos.sendTransaction("addrate", {
       description,
@@ -28,6 +28,7 @@ export default class RateForm extends PureComponent {
       })
       .catch(error => {
         console.error(error);
+        this.props.onCloseModal();
       });
   }
 

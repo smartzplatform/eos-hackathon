@@ -13,7 +13,7 @@ export default class ConsumerForm extends PureComponent {
   }
 
   addConsumer(formData) {
-    const { name, balance, description, meta } = formData;
+    const { name, balance, description = "", meta = "" } = formData;
 
     Eos.sendTransaction(
       ["adduser", "addbalance"],
@@ -48,7 +48,7 @@ export default class ConsumerForm extends PureComponent {
           maxLength: 12,
           pattern: "^[a-zA-Z]+$"
         },
-        balance: { title: "Balance", type: "string" },
+        balance: { title: "Balance", type: "number" },
         description: { title: "Description", type: "string" },
         meta: { title: "Meta", type: "string" }
       }
