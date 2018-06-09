@@ -3,7 +3,6 @@
 //
 
 #include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
 
 #include <string>
@@ -14,7 +13,6 @@
 #include "utils.hpp"
 
 
-using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
 using std::string;
@@ -57,7 +55,7 @@ public:
         if (_frames.find(device_account) == _frames.end()) {
             // It's customer scanned rfid with his phone - triggering payment.
             eosio_assert(sku_itr != _skus.end(), "SKU is not found");
-            asset quantity = asset(sku_itr->price, token_symbol);
+            uint64_t quantity = sku_itr->price;
 
             eosio::action(
                     permission_level{ device_account, N(active) },

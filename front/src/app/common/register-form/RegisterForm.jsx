@@ -5,10 +5,11 @@ import "./RegisterForm.less";
 
 export default class RegisterForm extends PureComponent {
   render() {
-    const { formSchema, uiSchema, onSubmit } = this.props;
+    const { formSchema, uiSchema, onSubmit, title } = this.props;
 
     return (
       <div className="register-form">
+        <h1>{title}</h1>
         <Form
           schema={formSchema}
           uiSchema={uiSchema}
