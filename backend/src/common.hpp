@@ -5,7 +5,7 @@
 #ifndef EOS_HACK_COMMON_H
 #define EOS_HACK_COMMON_H
 
-#endif //EOS_HACK_COMMON_H
+
 
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/symbol.hpp>
@@ -16,3 +16,5 @@ namespace common {
 
 
 }
+
+#endif //EOS_HACK_COMMON_H

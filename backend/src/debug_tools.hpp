@@ -5,7 +5,7 @@
 #ifndef EOS_HACK_DEBUG_TOOLS_H
 #define EOS_HACK_DEBUG_TOOLS_H
 
-#endif //EOS_HACK_DEBUG_TOOLS_H
+
 
 
 static constexpr auto header = "============================= ";
@@ -38,3 +38,6 @@ inline void print_block_end(Arg&& a, Args&&... args) {
     eosio::print("\n");
 }
 
+
+
+#endif //EOS_HACK_DEBUG_TOOLS_H
