@@ -10,7 +10,7 @@ BIN_DIR="$(cd $(dirname $0) && pwd)"
 
 #set -x
 
-mkdir -p "MOUNT_DIR"
+mkdir -p "$MOUNT_DIR"
 
 $EOS_DOCKER run --rm --network "$EOS_NETWORK" \
     -v "$MOUNT_DIR":/mounted \
