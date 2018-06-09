@@ -1,3 +1,45 @@
 .register-form {
     //sfsdff
+    .rjsf {
+        fieldset {
+            margin: 0;
+            padding: 0;
+
+            border: none;
+            outline: none;
+        }
+
+        .field-string {
+            margin-bottom: 22px;
+
+            .control-label {
+                padding-bottom: 7px;
+
+                font-size: 16px;
+            }
+
+            .form-control {
+                width: 100%;
+                height: 43px;
+                margin-top: 7px;
+                padding-left: 10px;
+
+                border: 1px solid lightgray;
+                border-radius: 3px;
+                outline: none;
+            }
+        }
+    }
+
+    .btn-submit {
+        width: 160px;
+        height: 45px;
+
+        border-radius: 3px;
+        background-color: lightblue;
+
+        &:hover {
+            background-color: darken(lightblue, 10);
+        }
+    }
 }

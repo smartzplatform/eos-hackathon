@@ -45,7 +45,7 @@ export default class Supplier extends PureComponent {
       content = <SupplierMain />;
     }
     return (
-      <div className="supplier-screen">
+      <div className="supplier-screen flex">
         <TopBar />
         {content}
       </div>

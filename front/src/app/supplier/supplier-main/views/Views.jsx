@@ -7,7 +7,7 @@ import GridTable from "./grid-table/GridTable";
 export const tabs = {
   RATES: "Rates",
   CONSUMERS: "Consumers",
-  COUNTERS: "Counters",
+  COUNTERS: "Devices",
   STATISTICS: "Statistics"
 };
 

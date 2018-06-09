@@ -32,7 +32,10 @@ export default class Login extends PureComponent {
   render() {
     return (
       <div className="login-screen">
-        <button className="btn btn-login" onClick={this.identity}>
+        <button
+          className="btn btn-login"
+          onClick={() => AppStore.setCurrentScreen(screens.SUPPLIER)}
+        >
           Login as supplier
         </button>
         <button
