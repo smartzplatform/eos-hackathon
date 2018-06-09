@@ -1,15 +1,9 @@
-import * as eosInstance from "eosjs";
+import Eos from "eosjs";
 import axios from "axios";
 import { eosConstants } from "../constants/constants";
 import * as binaryen from "binaryen";
 
-class Eos {
-  scatter;
-  identity;
-  eos;
-  network;
-  configEosInstance;
-
+class Eoss {
   constructor() {
     document.addEventListener("scatterLoaded", scatterExtension => {
       this.scatter = window.scatter;
@@ -19,7 +13,7 @@ class Eos {
       port: eosConstants.PORT,
       host: eosConstants.HOST,
       blockchain: eosConstants.BLOCKCHAIN,
-      protocol: eosConstants.PROTOCOL
+      chainId: eosConstants.CHAIN_ID
     };
 
     this.configEosInstance = {
@@ -31,6 +25,8 @@ class Eos {
     this.identity = null;
 
     this.sendTransaction = this.sendTransaction.bind(this);
+    this.readTable = this.readTable.bind(this);
+    this.getAccountName = this.getAccountName.bind(this);
   }
 
   getAccountName(identity) {
@@ -45,105 +41,49 @@ class Eos {
     }
   }
 
-  getIdentity(cb) {
-    console.log("---------------");
-    console.log(this.scatter);
+  // work well!
+  sendTransaction(funcName, formData) {
     return this.scatter
       .suggestNetwork(this.network)
-      .then(ok => {
-        console.log(ok);
-        console.log(this.scatter);
-        this.scatter.getIdentity({ accounts: [this.network] });
-      })
+      .then(param => this.scatter.getIdentity({ accounts: [this.network] }))
       .then(identity => {
-        console.log(identity);
-        this.identity = identity;
-        cb();
-      })
-      .catch(error => {
-        console.error(error);
+        const accountName = this.getAccountName(identity);
+
+        return this.scatter
+          .eos(this.network, Eos, this.configEosInstance, eosConstants.PROTOCOL)
+          .transaction(accountName, contract => {
+            if (Array.isArray(funcName)) {
+              funcName.forEach((item, i) => {
+                contract[item](formData[i], {
+                  authorization: accountName
+                });
+              });
+            } else {
+              contract[funcName](formData, {
+                authorization: accountName
+              });
+            }
+          });
       });
   }
 
-  deployContract = (bin, abi) => {
-    this.scatter.requireVersion(5.0);
-
-    // accept current network
+  readTable(formData) {
     return this.scatter
       .suggestNetwork(this.network)
-      .then(ok => this.scatter.getIdentity({ accounts: [this.network] }))
+      .then(param => this.scatter.getIdentity({ accounts: [this.network] }))
       .then(identity => {
-        this.currentIdentity = identity;
+        const accountName = this.getAccountName(identity);
 
-        let accountName;
-        if (Array.isArray(identity.accounts) && identity.accounts.length > 0) {
-          accountName = identity.accounts[0].name;
-        } else {
-          throw Error("Account not found!");
-        }
-
-        this.eos = this.scatter.eos(
-          this.network,
-          eosInstance,
-          this.configEosInstance
-        );
-        // send smart-contract
-        return this.eos.setcode(accountName, 0, 0, bin);
-      })
-      .then(param => {
-        return this.eos.setabi(
-          this.currentIdentity.accounts[0].name,
-          JSON.parse(abi)
-        );
-      });
-  };
-
-  sendTransaction(funcName, formData) {
-    this.scatter
-      .suggestNetwork(this.network)
-      .then(ok => this.scatter.getIdentity({ accounts: [this.network] }))
-      .then(identity => {
-        this.currentIdentity = identity;
-
-        let accountName;
-        if (Array.isArray(identity.accounts) && identity.accounts.length > 0) {
-          accountName = identity.accounts[0].name;
-        } else {
-          throw Error("Account not found!");
-        }
-
-        this.eos = this.scatter.eos(
-          this.network,
-          eosInstance,
-          this.configEosInstance
-        );
-
-        // very bad hardcode //TODO:remove after
-        if (funcName === "transfer" || funcName === "issue") {
-          return this.eos.transaction(accountName, contract => {
-            let data = {};
-            if (formData.length === 3) {
-              data = {
-                from: formData[0],
-                to: formData[1],
-                quantity: formData[2]
-              };
-            }
-            if (formData.length === 2) {
-              data = { to: formData[0], quantity: formData[1] };
-            }
-            contract[funcName](data, { authorization: accountName });
-          });
-        } else if (funcName === "account") {
-          return this.eos.getTableRows({
+        return this.scatter
+          .eos(this.network, Eos, this.configEosInstance, eosConstants.PROTOCOL)
+          .getTableRows({
             json: true,
-            code: formData[0],
-            scope: formData[0],
-            table: "account"
+            code: formData.code,
+            scope: formData.code,
+            table: formData.table
           });
-        }
       });
   }
 }
 
-export default new Eos();
+export default new Eoss();

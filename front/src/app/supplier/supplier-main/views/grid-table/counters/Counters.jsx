@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 
 import "./Counters.less";
 import ButtonAdd from "../../../../../common/button/ButtonAdd";
@@ -10,7 +10,7 @@ import Table from "./../../../../../common/table/Table";
 import MiddleBar from "../../../../../common/middle-bar/MiddleBar";
 
 @observer
-export default class Counters extends PureComponent {
+export default class Counters extends Component {
   constructor(props) {
     super(props);
 
