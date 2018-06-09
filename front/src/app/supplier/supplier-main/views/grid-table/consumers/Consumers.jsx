@@ -7,6 +7,7 @@ import Modal from "../../../../../common/modal/Modal";
 import { observer } from "mobx-react";
 import AppStore from "../../../../../../store/AppStore";
 import Table from "./../../../../../common/table/Table";
+import MiddleBar from "../../../../../common/middle-bar/MiddleBar";
 
 @observer
 export default class Consumers extends Component {
@@ -32,8 +33,10 @@ export default class Consumers extends Component {
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
           <ConsumerForm onCloseModal={this.toggleModal} />
         </Modal>
+        <MiddleBar>
+          <ButtonAdd text={"Add consumer"} onClick={this.toggleModal} />
+        </MiddleBar>
         <Table data={AppStore.consumers} />
-        <ButtonAdd text={"Add consumer +"} onClick={this.toggleModal} />
       </div>
     );
   }
