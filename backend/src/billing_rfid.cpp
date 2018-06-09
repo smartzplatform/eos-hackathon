@@ -3,7 +3,6 @@
 //
 
 #include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
 
 #include <string>
@@ -14,7 +13,6 @@
 #include "utils.hpp"
 
 
-using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
 using std::string;
@@ -57,7 +55,7 @@ public:
         if (_frames.find(device_account) == _frames.end()) {
             // It's customer scanned rfid with his phone - triggering payment.
             eosio_assert(sku_itr != _skus.end(), "SKU is not found");
-            asset quantity = asset(sku_itr->price, token_symbol);
+            uint64_t quantity = sku_itr->price;
 
             eosio::action(
                     permission_level{ device_account, N(active) },
@@ -76,7 +74,7 @@ public:
     }
 
     // @abi action
-    void add_sku(uint64_t id, uint64_t price) {
+    void addsku(uint64_t id, uint64_t price) {
         require_auth( _self );
 
         eosio_assert(_skus.find(id) == _skus.end(), "SKU already registered");
@@ -88,7 +86,7 @@ public:
     }
 
     // @abi action
-    void remove_sku(uint64_t id) {
+    void removesku(uint64_t id) {
         require_auth( _self );
 
         auto it = _skus.find(id);
@@ -98,7 +96,7 @@ public:
     }
 
     // @abi action
-    void add_frame(account_name id) {
+    void addframe(account_name id) {
         require_auth( _self );
 
         eosio_assert(_frames.find(id) == _frames.end(), "Frame already registered");
@@ -109,7 +107,7 @@ public:
     }
 
     // @abi action
-    void remove_frame(account_name id) {
+    void removeframe(account_name id) {
         require_auth( _self );
 
         auto it = _frames.find(id);
@@ -141,4 +139,4 @@ private:
 };
 
 
-EOSIO_ABI( billing_rfid, (bill)(add_sku)(remove_sku)(add_frame)(remove_frame) )
+EOSIO_ABI( billing_rfid, (bill)(addsku)(removesku)(addframe)(removeframe) )

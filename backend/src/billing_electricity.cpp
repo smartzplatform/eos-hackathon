@@ -3,8 +3,8 @@
 //
 
 #include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
 #include <eosiolib/currency.hpp>
+#include <eosiolib/fixedpoint.hpp>
 
 #include <string>
 
@@ -14,12 +14,13 @@
 #include "utils.hpp"
 
 
-using eosio::asset;
 using eosio::const_mem_fun;
 using eosio::indexed_by;
+using eosio::fixed_divide;
 using std::string;
 using eosio::permission_level;
 using common::token_symbol;
+using common::decimals;
 
 
 class billing_electricity : /*public billing,*/ public eosio::contract {
@@ -37,7 +38,7 @@ public:
             string billing_meta
     ) {
         // device_data is a number of measurements sent
-        // billing_meta: <float: watts/hour per measurement>\t<uint: payment per kWt/hour>
+        // billing_meta: <uint: watts/hour per measurement> <uint: payment per kWt/hour>
         print_block_start("billing_electricity:bill", device_data, user2bill, user_meta, billing_meta);
 
         require_auth(device_account);
@@ -49,7 +50,7 @@ public:
 
         eosio::print( "wattPerMeasurement = ", wattPerMeasurement, "  paymentPerKWT = ", paymentPerKWT, "\n" );
 
-        asset quantity = asset(device_data * wattPerMeasurement * paymentPerKWT / 1000, token_symbol);
+        uint64_t quantity = device_data * wattPerMeasurement * paymentPerKWT/ 1000;
         eosio::action(
                 permission_level{ device_account, N(active) },
                 supplier_account, N(dopayment),
