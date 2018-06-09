@@ -31,8 +31,6 @@ public:
     device_listener(account_name self)
     : contract(self), _accounts(_self, _self) {}
 
-    // @abi action
-    void bill(uint64_t payload, account_name user2bill, string user_meta);
 };
 
 
