@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 import "./GridTable.less";
-import { tabs } from "../Table";
+import { tabs } from "../Views";
 import Consumers from "./consumers/Consumers";
 import Counters from "./counters/Counters";
 import Rates from "./rates/Rates";

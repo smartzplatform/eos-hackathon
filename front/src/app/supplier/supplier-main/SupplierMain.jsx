@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./SupplierMain.less";
-import Table from "./table/Table";
+import Views from "./views/Views";
 
 export default class SupplierMain extends Component {
   render() {
@@ -25,7 +25,7 @@ export default class SupplierMain extends Component {
     // }
     return (
       <div className="supplier-main">
-        <Table />
+        <Views />
       </div>
     );
   }

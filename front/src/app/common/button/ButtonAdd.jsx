@@ -7,7 +7,7 @@ export default class Button extends PureComponent {
     const { text, onClick } = this.props;
 
     return (
-      <div className="button-add flex" onClick={onClick}>
+      <div className="button-add btn" onClick={onClick}>
         {text}
       </div>
     );

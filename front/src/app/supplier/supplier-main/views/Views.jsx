@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-import "./Table.less";
+import "./Views.less";
 import TabBar from "./tab-bar/TabBar";
 import GridTable from "./grid-table/GridTable";
 
@@ -11,7 +11,7 @@ export const tabs = {
   STATISTICS: "Statistics"
 };
 
-export default class Table extends PureComponent {
+export default class Views extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -26,7 +26,7 @@ export default class Table extends PureComponent {
 
   render() {
     return (
-      <div className="table">
+      <div className="views">
         <TabBar
           gridTable={this.state.gridTable}
           onClick={this.onSetGridTable}
