@@ -74,7 +74,7 @@ public:
     }
 
     // @abi action
-    void add_sku(uint64_t id, uint64_t price) {
+    void addsku(uint64_t id, uint64_t price) {
         require_auth( _self );
 
         eosio_assert(_skus.find(id) == _skus.end(), "SKU already registered");
@@ -86,7 +86,7 @@ public:
     }
 
     // @abi action
-    void remove_sku(uint64_t id) {
+    void removesku(uint64_t id) {
         require_auth( _self );
 
         auto it = _skus.find(id);
@@ -96,7 +96,7 @@ public:
     }
 
     // @abi action
-    void add_frame(account_name id) {
+    void addframe(account_name id) {
         require_auth( _self );
 
         eosio_assert(_frames.find(id) == _frames.end(), "Frame already registered");
@@ -107,7 +107,7 @@ public:
     }
 
     // @abi action
-    void remove_frame(account_name id) {
+    void removeframe(account_name id) {
         require_auth( _self );
 
         auto it = _frames.find(id);
@@ -139,4 +139,4 @@ private:
 };
 
 
-EOSIO_ABI( billing_rfid, (bill)(add_sku)(remove_sku)(add_frame)(remove_frame) )
+EOSIO_ABI( billing_rfid, (bill)(addsku)(removesku)(addframe)(removeframe) )
