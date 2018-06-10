@@ -126,7 +126,15 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
     });
 
     _logs.emplace( _self, [&]( auto& a ) {
-        a.log_id = _logs.available_primary_key();
+        uint64_t pk = 1000000;
+        auto itr = _logs.find(1000000);
+        if (itr != _logs.end()) {
+            auto it = _logs.begin();
+            pk = it->primary_key()-1;
+        }
+
+
+        a.log_id = pk;
         a.user_account = from;
         a.device_account = device_account;
         a.balance_diff = - int64_t(quantity);
@@ -135,7 +143,7 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
         a.final_balance = user_itr->balance;
     });
 
-    print_block_end("dopayment", get_acc(billing_account), get_acc(from), quantity);
+    print_block_end("dopayment1", get_acc(billing_account), get_acc(from), quantity);
 }
 
 

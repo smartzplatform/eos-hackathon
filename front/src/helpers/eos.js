@@ -80,7 +80,8 @@ class Eoss {
             json: true,
             code: formData.code,
             scope: formData.code,
-            table: formData.table
+            table: formData.table,
+            limit: 1000
           });
       });
   }
