@@ -18,7 +18,7 @@ async function sendTrx() {
     try {
         let contract = await eos.contract(conf.eos.contract);
 
-        let data = 1000; //TODO normal
+        let data = 10; //TODO normal
         await contract.devicesignal(conf.eos.accountName, data, {authorization: conf.eos.accountName});
         tickLed(led2);
     } catch (e) {

@@ -48,12 +48,20 @@ let pythonProcess = spawn('python', ["readRfid.py"], {env: {PYTHONPATH: "./libs/
 
 let lastTick = {};
 pythonProcess.stdout.on('data', (data) => {
-    let json = JSON.parse(data);
-    let uid = json.uid[0];
-    uid = (uid << 8) | json.uid[1];
-    uid = (uid << 8) | json.uid[2];
-    uid = (uid << 8) | json.uid[3];
+    let uid = 0;
+    let json = null;
+    try {
+        json = JSON.parse(data);
+        uid = json.uid[0];
+        uid = (uid << 8) | json.uid[1];
+        uid = (uid << 8) | json.uid[2];
+        uid = (uid << 8) | json.uid[3];
+    } catch(e) {
+        console.log(e.toString());
+        return;
+    }
 
+    console.log(uid);
     if (lastTick[uid.toString()] && (new Date().getTime() - lastTick[uid.toString()]) < 500)
         return;
 
