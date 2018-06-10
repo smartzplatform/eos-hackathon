@@ -72,7 +72,7 @@ void supplier::addbalance(account_name user_account, uint64_t quantity) {
 
     _users.modify( itr, 0, [&]( auto& a ) {
         a.balance = a.balance + quantity;
-        eosio_assert( a.balance >= quantity, "Overflow detected" );
+        // eosio_assert( a.balance >= quantity, "Overflow detected" ); only for unsigned
     });
 
     print_block_end("addbalance", get_acc(user_account), quantity);
