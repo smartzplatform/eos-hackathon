@@ -9,6 +9,11 @@ import { observer } from "mobx-react";
 
 @observer
 export default class Statistics extends Component {
+  constructor(props) {
+    super(props);
+
+    this.lastNow = 0;
+  }
   componentDidMount() {
     this.timerId = setInterval(() => {
       Eos.readTable({ code: "supplier", table: "log" })
@@ -40,6 +45,24 @@ export default class Statistics extends Component {
               };
               statList.push(stat);
             });
+
+            let was = this.lastNow;
+            let now = statList[0].logId;
+            this.lastNow = statList[0].logId;
+            let diff = was - now;
+
+            let elem = document.getElementsByClassName("table-item");
+            if (diff > 0 && diff < 5) {
+              for (let i = 0; i < diff; i++) {
+                const el = elem[i];
+                el.style.backgroundColor = "lightgreen";
+                el.style.transition = "all 1s";
+
+                setTimeout(() => {
+                  el.style.backgroundColor = "inherit";
+                }, 3000);
+              }
+            }
 
             AppStore.addStat(statList);
           }
