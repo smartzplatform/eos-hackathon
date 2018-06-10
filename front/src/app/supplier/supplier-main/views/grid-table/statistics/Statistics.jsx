@@ -56,7 +56,7 @@ export default class Statistics extends Component {
               for (let i = 0; i < diff; i++) {
                 const el = elem[i];
                 el.style.backgroundColor = "lightgreen";
-                el.style.transition = "all 1s";
+                el.style.transition = "all 2s";
 
                 setTimeout(() => {
                   el.style.backgroundColor = "inherit";
