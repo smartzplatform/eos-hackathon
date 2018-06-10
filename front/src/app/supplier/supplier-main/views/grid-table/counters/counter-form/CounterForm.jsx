@@ -4,10 +4,13 @@ import "./CounterForm.less";
 import RegisterForm from "../../../../../../common/register-form/RegisterForm";
 import AppStore from "../../../../../../../store/AppStore";
 import Eos from "../../../../../../../helpers/eos";
+import Loader from "./../../../../../../common/loader/Loader";
 
 export default class CounterForm extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = { loading: false };
 
     this.addDevice = this.addDevice.bind(this);
   }
@@ -17,6 +20,8 @@ export default class CounterForm extends PureComponent {
 
     const dict = { electricity: "electricity", RFID: "rfidreader" };
 
+    this.setState({ loading: true });
+
     Eos.sendTransaction("adddevice", {
       device_account: dict[model],
       user_account: consumer,
@@ -24,7 +29,6 @@ export default class CounterForm extends PureComponent {
       description
     })
       .then(result => {
-        console.log(result);
         this.props.onCloseModal();
       })
       .catch(error => {
@@ -50,9 +54,6 @@ export default class CounterForm extends PureComponent {
     };
 
     const uiSchema = {
-      // model: {
-      //   "ui:placeholder": "RFID"
-      // },
       consumer: {
         "ui:placeholder": "qwertyuiopas"
       },
@@ -61,15 +62,20 @@ export default class CounterForm extends PureComponent {
       }
     };
 
-    return (
-      <div className="counter-form">
+    let content;
+    if (this.state.loading) {
+      content = <Loader />;
+    } else {
+      content = (
         <RegisterForm
-          onSubmit={this.addDevice}
           formSchema={formSchema}
           uiSchema={uiSchema}
+          onSubmit={this.addDevice}
           title={"Add device"}
         />
-      </div>
-    );
+      );
+    }
+
+    return <div className="counter-form">{content}</div>;
   }
 }

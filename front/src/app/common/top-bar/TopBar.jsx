@@ -12,7 +12,7 @@ export default class TopBar extends Component {
         <div className="logo">
           <h2>SensorPay</h2>
         </div>
-        <span className="nickname">Some name</span>
+        <span className="nickname">Username</span>
       </div>
     );
   }

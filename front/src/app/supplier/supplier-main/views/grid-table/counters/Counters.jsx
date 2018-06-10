@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 import AppStore from "../../../../../../store/AppStore";
 import Table from "./../../../../../common/table/Table";
 import MiddleBar from "../../../../../common/middle-bar/MiddleBar";
+import Eos from "../../../../../../helpers/eos";
 
 @observer
 export default class Counters extends Component {
@@ -21,6 +22,37 @@ export default class Counters extends Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
 
+  componentDidMount() {
+    Eos.readTable({ code: "supplier", table: "device" })
+      .then(result => {
+        if (
+          result.rows &&
+          Array.isArray(result.rows) &&
+          result.rows.length > 0
+        ) {
+          let deviceList = [];
+
+          result.rows.map(item => {
+            const { account, rate_id, user_account, description } = item;
+
+            const device = {
+              model: account,
+              consumer: user_account,
+              rate: rate_id,
+              description
+            };
+
+            deviceList.push(device);
+          });
+
+          AppStore.addDevice(deviceList);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   toggleModal() {
     const { isOpenModal } = this.state;
 
@@ -30,6 +62,12 @@ export default class Counters extends Component {
   render() {
     const { isOpenModal } = this.state;
 
+    const data = {
+      headers: ["Model/Type", "Consumer", "Rate", "Description"],
+      order: ["model", "consumer", "rate", "description"],
+      fields: [...AppStore.devices]
+    };
+
     return (
       <div className="counters">
         <Modal isOpen={isOpenModal} onClose={this.toggleModal}>
@@ -38,7 +76,7 @@ export default class Counters extends Component {
         <MiddleBar>
           <ButtonAdd text={"Add device"} onClick={this.toggleModal} />
         </MiddleBar>
-        <Table data={AppStore.devices} />
+        <Table data={data} />
       </div>
     );
   }

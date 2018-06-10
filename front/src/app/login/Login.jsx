@@ -20,7 +20,6 @@ export default class Login extends PureComponent {
       Eos.scatter
         .getIdentity({ accounts: [this.network] })
         .then(identity => {
-          console.log(identity);
           this.identity = identity;
         })
         .catch(error => {

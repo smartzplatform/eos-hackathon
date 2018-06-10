@@ -72,7 +72,7 @@ void supplier::addbalance(account_name user_account, uint64_t quantity) {
 
     _users.modify( itr, 0, [&]( auto& a ) {
         a.balance = a.balance + quantity;
-        eosio_assert( a.balance >= quantity, "Overflow detected" );
+        // eosio_assert( a.balance >= quantity, "Overflow detected" ); only for unsigned
     });
 
     print_block_end("addbalance", get_acc(user_account), quantity);
@@ -118,11 +118,32 @@ void supplier::dopayment(account_name billing_account, account_name device_accou
     auto user_itr = _users.find( from );
     eosio_assert(user_itr != _users.end(), "User doesn't registered");
 
+    auto device_itr = _devices.find( device_account );
+    eosio_assert(device_itr != _devices.end(), "Device doesn't registered");
+
     _users.modify( user_itr, 0, [&]( auto& a ) {
-        a.balance = a.balance - quantity; //can be negative, debt
+        a.balance = a.balance - int64_t(quantity); //can be negative, debt
     });
 
-    print_block_end("dopayment", get_acc(billing_account), get_acc(from), quantity);
+    _logs.emplace( _self, [&]( auto& a ) {
+        uint64_t pk = 1000000;
+        auto itr = _logs.find(1000000);
+        if (itr != _logs.end()) {
+            auto it = _logs.begin();
+            pk = it->primary_key()-1;
+        }
+
+
+        a.log_id = pk;
+        a.user_account = from;
+        a.device_account = device_account;
+        a.balance_diff = - int64_t(quantity);
+
+        a.rate_id = device_itr->rate_id;
+        a.final_balance = user_itr->balance;
+    });
+
+    print_block_end("dopayment1", get_acc(billing_account), get_acc(from), quantity);
 }
 
 

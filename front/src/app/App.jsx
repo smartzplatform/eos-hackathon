@@ -13,7 +13,6 @@ import Consumer from "./consumer/Consumer";
 class App extends Component {
   render() {
     let content;
-    console.log("last: ", AppStore.currentScreen);
     switch (AppStore.currentScreen) {
       case screens.LOGIN:
         content = <Login />;
